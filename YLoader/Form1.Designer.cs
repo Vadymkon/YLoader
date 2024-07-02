@@ -122,7 +122,7 @@ namespace YLoader
             this.yt_Button1.RoundingEnable = true;
             this.yt_Button1.Size = new System.Drawing.Size(508, 147);
             this.yt_Button1.TabIndex = 27;
-            this.yt_Button1.Text = "Манипуляции с текущим графиком\r\n.\r\n";
+            this.yt_Button1.Text = "Manipulating the current schedule\r\n.\r\n";
             this.yt_Button1.TextHover = null;
             this.yt_Button1.UseDownPressEffectOnClick = false;
             this.yt_Button1.UseRippleEffect = true;
@@ -151,7 +151,7 @@ namespace YLoader
             this.yt_Button2.RoundingEnable = true;
             this.yt_Button2.Size = new System.Drawing.Size(476, 42);
             this.yt_Button2.TabIndex = 27;
-            this.yt_Button2.Text = "Поглазеть на график --- Дозагрузить --- Исправить даты";
+            this.yt_Button2.Text = "Look at the schedule --- Upload --- Fix the dates";
             this.yt_Button2.TextHover = null;
             this.yt_Button2.UseDownPressEffectOnClick = false;
             this.yt_Button2.UseRippleEffect = true;
@@ -179,7 +179,7 @@ namespace YLoader
             this.yt_Button3.RoundingEnable = true;
             this.yt_Button3.Size = new System.Drawing.Size(357, 74);
             this.yt_Button3.TabIndex = 27;
-            this.yt_Button3.Text = ".\r\nShorts-график";
+            this.yt_Button3.Text = ".\r\nShorts-schedule";
             this.yt_Button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button3.TextHover = null;
             this.yt_Button3.UseDownPressEffectOnClick = false;
@@ -209,7 +209,7 @@ namespace YLoader
             this.yt_Button4.RoundingEnable = true;
             this.yt_Button4.Size = new System.Drawing.Size(113, 78);
             this.yt_Button4.TabIndex = 27;
-            this.yt_Button4.Text = "+1 месяц";
+            this.yt_Button4.Text = "+1 month";
             this.yt_Button4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button4.TextHover = null;
             this.yt_Button4.UseDownPressEffectOnClick = false;
@@ -239,7 +239,7 @@ namespace YLoader
             this.yt_Button5.RoundingEnable = true;
             this.yt_Button5.Size = new System.Drawing.Size(200, 52);
             this.yt_Button5.TabIndex = 27;
-            this.yt_Button5.Text = "Рассылка";
+            this.yt_Button5.Text = "Mailspam";
             this.yt_Button5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button5.TextHover = null;
             this.yt_Button5.UseDownPressEffectOnClick = false;
@@ -269,7 +269,7 @@ namespace YLoader
             this.yt_Button6.RoundingEnable = true;
             this.yt_Button6.Size = new System.Drawing.Size(200, 79);
             this.yt_Button6.TabIndex = 27;
-            this.yt_Button6.Text = "Загрузить план и сверить с ним";
+            this.yt_Button6.Text = "Upload the schedule and check it";
             this.yt_Button6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button6.TextHover = null;
             this.yt_Button6.UseDownPressEffectOnClick = false;
@@ -299,7 +299,7 @@ namespace YLoader
             this.yt_Button7.RoundingEnable = true;
             this.yt_Button7.Size = new System.Drawing.Size(200, 79);
             this.yt_Button7.TabIndex = 27;
-            this.yt_Button7.Text = "Сгенерировать график выхода";
+            this.yt_Button7.Text = "Generate schedule";
             this.yt_Button7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button7.TextHover = null;
             this.yt_Button7.UseDownPressEffectOnClick = false;
@@ -357,7 +357,7 @@ namespace YLoader
             this.yt_Button8.RoundingEnable = true;
             this.yt_Button8.Size = new System.Drawing.Size(108, 44);
             this.yt_Button8.TabIndex = 27;
-            this.yt_Button8.Text = "Источник: ";
+            this.yt_Button8.Text = "Source: ";
             this.yt_Button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button8.TextHover = null;
             this.yt_Button8.UseDownPressEffectOnClick = false;
@@ -404,9 +404,9 @@ namespace YLoader
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(528, 56);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(320, 48);
+            this.label1.Size = new System.Drawing.Size(211, 48);
             this.label1.TabIndex = 30;
-            this.label1.Text = "CEO tracer: \r\n(нажмите чтобы открыть файл)";
+            this.label1.Text = "CEO tracer: \r\n(click to open the file)";
             // 
             // button2
             // 
@@ -414,7 +414,7 @@ namespace YLoader
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(168, 23);
             this.button2.TabIndex = 0;
-            this.button2.Text = "Загрузить шаблон рассылки";
+            this.button2.Text = "Upload mailspam template";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -436,9 +436,9 @@ namespace YLoader
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.label3.Location = new System.Drawing.Point(392, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 24);
+            this.label3.Size = new System.Drawing.Size(92, 24);
             this.label3.TabIndex = 31;
-            this.label3.Text = "Загружено";
+            this.label3.Text = "Uploaded";
             this.label3.Visible = false;
             // 
             // egoldsToggleSwitch1
@@ -451,10 +451,10 @@ namespace YLoader
             this.egoldsToggleSwitch1.Font = new System.Drawing.Font("Verdana", 9F);
             this.egoldsToggleSwitch1.Location = new System.Drawing.Point(261, 525);
             this.egoldsToggleSwitch1.Name = "egoldsToggleSwitch1";
-            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(264, 15);
+            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(277, 15);
             this.egoldsToggleSwitch1.TabIndex = 32;
-            this.egoldsToggleSwitch1.Text = "НЕ Загружать график с запуском";
-            this.egoldsToggleSwitch1.TextOnChecked = "Загружать график с запуском";
+            this.egoldsToggleSwitch1.Text = "DO NOT load 2d screen with startup";
+            this.egoldsToggleSwitch1.TextOnChecked = "load 2d screen with startup";
             this.egoldsToggleSwitch1.CheckedChanged += new yt_DesignUI.EgoldsToggleSwitch.OnCheckedChangedHandler(this.egoldsToggleSwitch1_CheckedChanged);
             // 
             // linkLabel1
@@ -463,10 +463,10 @@ namespace YLoader
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.linkLabel1.Location = new System.Drawing.Point(735, 517);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(133, 24);
+            this.linkLabel1.Size = new System.Drawing.Size(111, 24);
             this.linkLabel1.TabIndex = 33;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Создать СЕО";
+            this.linkLabel1.Text = "Create CEO";
             this.linkLabel1.Visible = false;
             // 
             // button3
@@ -475,7 +475,7 @@ namespace YLoader
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(74, 23);
             this.button3.TabIndex = 34;
-            this.button3.Text = "Сброс данных программы";
+            this.button3.Text = "Reset program data";
             this.toolTip1.SetToolTip(this.button3, "Сброс данных программы");
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -501,7 +501,7 @@ namespace YLoader
             this.yt_Button10.RoundingEnable = true;
             this.yt_Button10.Size = new System.Drawing.Size(200, 52);
             this.yt_Button10.TabIndex = 27;
-            this.yt_Button10.Text = "Загрузка превью";
+            this.yt_Button10.Text = "Upload thumbnails";
             this.yt_Button10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button10.TextHover = null;
             this.yt_Button10.UseDownPressEffectOnClick = false;
