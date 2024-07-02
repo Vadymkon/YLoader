@@ -35,6 +35,7 @@ namespace YLoader
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.yt_Button3 = new yt_DesignUI.yt_Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.egoldsToggleSwitch2 = new yt_DesignUI.EgoldsToggleSwitch();
             this.egoldsToggleSwitch1 = new yt_DesignUI.EgoldsToggleSwitch();
             this.egoldsGoogleTextBox2 = new yt_DesignUI.EgoldsGoogleTextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -47,7 +48,6 @@ namespace YLoader
             this.yt_Button11 = new yt_DesignUI.yt_Button();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.egoldsToggleSwitch2 = new yt_DesignUI.EgoldsToggleSwitch();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -106,7 +106,7 @@ namespace YLoader
             this.yt_Button3.RoundingEnable = true;
             this.yt_Button3.Size = new System.Drawing.Size(776, 35);
             this.yt_Button3.TabIndex = 28;
-            this.yt_Button3.Text = "Реализовать этот график";
+            this.yt_Button3.Text = "Realize this schedule";
             this.yt_Button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.yt_Button3.TextHover = null;
             this.yt_Button3.UseDownPressEffectOnClick = false;
@@ -133,6 +133,22 @@ namespace YLoader
             this.panel2.Size = new System.Drawing.Size(270, 479);
             this.panel2.TabIndex = 32;
             // 
+            // egoldsToggleSwitch2
+            // 
+            this.egoldsToggleSwitch2.BackColor = System.Drawing.Color.White;
+            this.egoldsToggleSwitch2.BackColorOFF = System.Drawing.Color.Silver;
+            this.egoldsToggleSwitch2.BackColorON = System.Drawing.Color.DodgerBlue;
+            this.egoldsToggleSwitch2.Checked = false;
+            this.egoldsToggleSwitch2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.egoldsToggleSwitch2.Font = new System.Drawing.Font("Verdana", 9F);
+            this.egoldsToggleSwitch2.Location = new System.Drawing.Point(20, 301);
+            this.egoldsToggleSwitch2.Name = "egoldsToggleSwitch2";
+            this.egoldsToggleSwitch2.Size = new System.Drawing.Size(107, 15);
+            this.egoldsToggleSwitch2.TabIndex = 33;
+            this.egoldsToggleSwitch2.Text = "FileName";
+            this.egoldsToggleSwitch2.TextOnChecked = "Title";
+            this.egoldsToggleSwitch2.CheckedChanged += new yt_DesignUI.EgoldsToggleSwitch.OnCheckedChangedHandler(this.egoldsToggleSwitch2_CheckedChanged);
+            // 
             // egoldsToggleSwitch1
             // 
             this.egoldsToggleSwitch1.BackColor = System.Drawing.Color.White;
@@ -143,10 +159,10 @@ namespace YLoader
             this.egoldsToggleSwitch1.Font = new System.Drawing.Font("Verdana", 9F);
             this.egoldsToggleSwitch1.Location = new System.Drawing.Point(20, 331);
             this.egoldsToggleSwitch1.Name = "egoldsToggleSwitch1";
-            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(226, 15);
+            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(142, 15);
             this.egoldsToggleSwitch1.TabIndex = 33;
-            this.egoldsToggleSwitch1.Text = "НЕ Форматировать график";
-            this.egoldsToggleSwitch1.TextOnChecked = "Форматировать график";
+            this.egoldsToggleSwitch1.Text = "Do NOT format";
+            this.egoldsToggleSwitch1.TextOnChecked = "Format";
             this.egoldsToggleSwitch1.CheckedChanged += new yt_DesignUI.EgoldsToggleSwitch.OnCheckedChangedHandler(this.egoldsToggleSwitch1_CheckedChanged);
             // 
             // egoldsGoogleTextBox2
@@ -164,7 +180,7 @@ namespace YLoader
             this.egoldsGoogleTextBox2.Size = new System.Drawing.Size(224, 40);
             this.egoldsGoogleTextBox2.TabIndex = 31;
             this.egoldsGoogleTextBox2.TextInput = "";
-            this.egoldsGoogleTextBox2.TextPreview = "DD.MM.YYYY - начальная дата";
+            this.egoldsGoogleTextBox2.TextPreview = "DD.MM.YYYY - start date";
             this.egoldsGoogleTextBox2.UseSystemPasswordChar = false;
             // 
             // comboBox1
@@ -214,7 +230,7 @@ namespace YLoader
             this.yt_Button13.RoundingEnable = true;
             this.yt_Button13.Size = new System.Drawing.Size(224, 65);
             this.yt_Button13.TabIndex = 28;
-            this.yt_Button13.Text = "Сдвинуть график";
+            this.yt_Button13.Text = "Shift schedule";
             this.yt_Button13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button13.TextHover = null;
             this.yt_Button13.UseDownPressEffectOnClick = false;
@@ -244,7 +260,7 @@ namespace YLoader
             this.yt_Button12.RoundingEnable = true;
             this.yt_Button12.Size = new System.Drawing.Size(224, 37);
             this.yt_Button12.TabIndex = 28;
-            this.yt_Button12.Text = "Shorts -график";
+            this.yt_Button12.Text = "Shorts-schedule";
             this.yt_Button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button12.TextHover = null;
             this.yt_Button12.UseDownPressEffectOnClick = false;
@@ -274,7 +290,7 @@ namespace YLoader
             this.yt_Button10.RoundingEnable = true;
             this.yt_Button10.Size = new System.Drawing.Size(224, 37);
             this.yt_Button10.TabIndex = 28;
-            this.yt_Button10.Text = "Исправить даты";
+            this.yt_Button10.Text = "Correct the dates";
             this.yt_Button10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button10.TextHover = null;
             this.yt_Button10.UseDownPressEffectOnClick = false;
@@ -304,7 +320,7 @@ namespace YLoader
             this.yt_Button8.RoundingEnable = true;
             this.yt_Button8.Size = new System.Drawing.Size(224, 37);
             this.yt_Button8.TabIndex = 28;
-            this.yt_Button8.Text = "Догрузить материал";
+            this.yt_Button8.Text = "Add material";
             this.yt_Button8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button8.TextHover = null;
             this.yt_Button8.UseDownPressEffectOnClick = false;
@@ -334,7 +350,7 @@ namespace YLoader
             this.yt_Button7.RoundingEnable = true;
             this.yt_Button7.Size = new System.Drawing.Size(224, 37);
             this.yt_Button7.TabIndex = 28;
-            this.yt_Button7.Text = "Сценарий:";
+            this.yt_Button7.Text = "Script:";
             this.yt_Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button7.TextHover = null;
             this.yt_Button7.UseDownPressEffectOnClick = false;
@@ -364,7 +380,7 @@ namespace YLoader
             this.yt_Button11.RoundingEnable = true;
             this.yt_Button11.Size = new System.Drawing.Size(224, 37);
             this.yt_Button11.TabIndex = 28;
-            this.yt_Button11.Text = "Источники:";
+            this.yt_Button11.Text = "Sources:";
             this.yt_Button11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.yt_Button11.TextHover = null;
             this.yt_Button11.UseDownPressEffectOnClick = false;
@@ -387,22 +403,6 @@ namespace YLoader
             this.toolTip1.SetToolTip(this.label1, "Check videos you gonna move \r\n(click on checkboxes)\r\nAfter right click to place w" +
         "here you gonna put it.\r\n\r\nClick on \"Move Graffik\" to HIDE checkboxes.");
             this.label1.Visible = false;
-            // 
-            // egoldsToggleSwitch2
-            // 
-            this.egoldsToggleSwitch2.BackColor = System.Drawing.Color.White;
-            this.egoldsToggleSwitch2.BackColorOFF = System.Drawing.Color.Silver;
-            this.egoldsToggleSwitch2.BackColorON = System.Drawing.Color.DodgerBlue;
-            this.egoldsToggleSwitch2.Checked = false;
-            this.egoldsToggleSwitch2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.egoldsToggleSwitch2.Font = new System.Drawing.Font("Verdana", 9F);
-            this.egoldsToggleSwitch2.Location = new System.Drawing.Point(20, 301);
-            this.egoldsToggleSwitch2.Name = "egoldsToggleSwitch2";
-            this.egoldsToggleSwitch2.Size = new System.Drawing.Size(107, 15);
-            this.egoldsToggleSwitch2.TabIndex = 33;
-            this.egoldsToggleSwitch2.Text = "FileName";
-            this.egoldsToggleSwitch2.TextOnChecked = "Title";
-            this.egoldsToggleSwitch2.CheckedChanged += new yt_DesignUI.EgoldsToggleSwitch.OnCheckedChangedHandler(this.egoldsToggleSwitch2_CheckedChanged);
             // 
             // Form2
             // 
