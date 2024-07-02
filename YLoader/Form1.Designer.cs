@@ -406,7 +406,7 @@ namespace YLoader
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 48);
             this.label1.TabIndex = 30;
-            this.label1.Text = "CEO tracer: \r\n(click to open the file)";
+            this.label1.Text = "SEO tracer: \r\n(click to open the file)";
             // 
             // button2
             // 
@@ -463,10 +463,10 @@ namespace YLoader
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.linkLabel1.Location = new System.Drawing.Point(735, 517);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(111, 24);
+            this.linkLabel1.Size = new System.Drawing.Size(110, 24);
             this.linkLabel1.TabIndex = 33;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Create CEO";
+            this.linkLabel1.Text = "Create SEO";
             this.linkLabel1.Visible = false;
             // 
             // button3
