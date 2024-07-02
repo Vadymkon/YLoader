@@ -451,10 +451,10 @@ namespace YLoader
             this.egoldsToggleSwitch1.Font = new System.Drawing.Font("Verdana", 9F);
             this.egoldsToggleSwitch1.Location = new System.Drawing.Point(261, 525);
             this.egoldsToggleSwitch1.Name = "egoldsToggleSwitch1";
-            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(277, 15);
+            this.egoldsToggleSwitch1.Size = new System.Drawing.Size(214, 15);
             this.egoldsToggleSwitch1.TabIndex = 32;
-            this.egoldsToggleSwitch1.Text = "DO NOT load 2d screen with startup";
-            this.egoldsToggleSwitch1.TextOnChecked = "load 2d screen with startup";
+            this.egoldsToggleSwitch1.Text = "DON\'T autoload 2d screen";
+            this.egoldsToggleSwitch1.TextOnChecked = "autoload 2d screen";
             this.egoldsToggleSwitch1.CheckedChanged += new yt_DesignUI.EgoldsToggleSwitch.OnCheckedChangedHandler(this.egoldsToggleSwitch1_CheckedChanged);
             // 
             // linkLabel1

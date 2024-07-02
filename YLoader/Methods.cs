@@ -93,7 +93,7 @@ namespace YLoader
             if (videosWithoutCEO.Count > 0) //if there are
             {
                 label2.Visible = true;
-                label2.Text = $"{videosWithoutCEO.Count} vids with no SEO at all."; //right-bottom corner message
+                label2.Text = $"{videosWithoutCEO.Count} videos without SEO at all."; //right-bottom corner message
                 linkLabel1.Visible = true;
                 linkLabel1.Click += new System.EventHandler((a, e) =>
                 {
