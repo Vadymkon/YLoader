@@ -52,7 +52,7 @@ namespace YLoader
                 var a = new VideoFile(FileName, path);
                 if (a.Title != "") return;
                 if (a.Description != "") return;
-                if (a.Tags.Length != 0) return;
+               // if (a.Tags.Length != 0) return;
             }
 
             String message = "";
