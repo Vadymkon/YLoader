@@ -67,8 +67,8 @@ namespace YLoader
 
             b.ForEach(x =>
             {
-                var videosComparing = a.own_videos.ToList().Where(y => y.Snippet.Title.Contains(x.Title != "" ? x.Title : "n)sk2") 
-                || y.Snippet.Title.formatOff().Contains(x.FileName.formatOff())).ToList();
+                var videosComparing = a.own_videos.ToList().Where(y => y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2") 
+                || y.Snippet.Title.formatOff() == (x.FileName.formatOff())).ToList();
                 if (videosComparing.Count > 0) x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
             }); //finding Id for this
 

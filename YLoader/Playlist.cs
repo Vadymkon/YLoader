@@ -80,7 +80,7 @@ namespace YLoader
 
         void sort_music_type()
         {
-            List<String> music_staff = new List<string> { "speed", "slow" , "acapell", "instr"}; //que of publicitian
+            List<String> music_staff = new List<string> { "speed", "prikol", "slow" , "acapell", "rus", "instr", "minus", "demo"}; //que of publicitian
             music_staff.ForEach(y => { 
                 String buffer = ""; 
                 List<String> place = ListOfVideos.Where(x=>x.Contains(y)).ToList(); //get element
@@ -94,6 +94,18 @@ namespace YLoader
                     else ListOfVideos.Add(buffer);
                 }
             });
+            // first named 
+            ListOfVideos.Where(x => { // is contains some staff after _ sign
+                bool state = true;
+                music_staff.ForEach(y => {
+                    if (x.Contains(y)) state = false;
+                });
+                return state;
+            })
+                .ToList().ForEach(x => {
+                    ListOfVideos.Remove(x);
+                    ListOfVideos.Insert(0, x);
+                });
         }
 
         /*
