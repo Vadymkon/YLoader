@@ -118,6 +118,14 @@ namespace YLoader
             return message;
         }
 
+        public String print()
+        {
+            remove_spaces();
+            String message = "  Graphik made by YT Uploader\r\n\r\n";
+            queue.ForEach(x => message += $"{queueDT[queue.IndexOf(x)].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace("mp4","")}\r\n");
+            return message;
+        }
+
         public void writeDatesToCEO(String pathToCEO, String pathToGraphik)
         {
             List <VideoFile> a = new List<VideoFile>(); //making list for comparing

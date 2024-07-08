@@ -1,4 +1,5 @@
 ﻿using BrightIdeasSoftware;
+using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,6 +59,23 @@ namespace YLoader
             return videos;
         }
 
+        List<VideoFile> getVideoListFromSEO(String path = "")
+        {
+            List<VideoFile> videos = new List<VideoFile>();
+            // for all videos make CEO
+            if (path == "") path = Settings.Default["active_path"].ToString(); //default way
+            String pathCEO = path + @"\CEO";
+            Directory.CreateDirectory(pathCEO);
+            Directory.GetFiles(pathCEO).ToList().Where(x => x.EndsWith(".txt")).ToList() //for all videos
+                .ForEach(x =>
+                {
+                    VideoFile a = new VideoFile(x.Replace(pathCEO + @"\", "").Replace(".txt", "")); //загрузка правильного FileName
+                    a.putCEOInfo(pathCEO); //getCEOinfo
+                    videos.Add(a);
+                });
+            return videos;
+        }
+
         async void saveIdsToCEO()
         {
             var a = new YTStaff();
@@ -74,6 +92,9 @@ namespace YLoader
 
             b.ForEach(x => x.saveCEOInfo(Settings.Default["active_path"].ToString() + @"\CEO"));
         }
+
+        
+
 
         void CEO_settings()
         {

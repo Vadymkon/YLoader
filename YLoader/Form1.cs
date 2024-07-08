@@ -310,6 +310,22 @@ namespace YLoader
                 }
             }
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+            var videoFiles = getVideoListFromSEO(); // vFiles
+            videoFiles = videoFiles.OrderBy(x => x.PublishedDate).ToList();
+            //data
+            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
+            String saveGRdata = new Graphik(videoFiles).print();
+            Directory.CreateDirectory(pathCEO);
+
+            //saving
+            File.WriteAllText(pathCEO + "/_graphik.txt", saveGRdata); // save&print
+            File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
+            new Form2(this).Show();
+        }
     }
 
 
