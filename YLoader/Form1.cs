@@ -241,7 +241,7 @@ namespace YLoader
 
                     Directory.CreateDirectory(selectedFolder + "\\monthNext"); //create
                     String pathToGrSH = Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt"; //path
-                    if (!File.Exists(pathToGrSH)) MakeGraphikSh(new DateTime(2024,06,01)); //safety
+                    if (!File.Exists(pathToGrSH)) MakeGraphikSh( new DateTime(2024,06,01)); //safety
                     Graphik a = new Graphik(pathToGrSH); //get GR object
                     int count = a.queueDT.Where(x => x <= DateTime.Now.AddDays(30)).ToList().Count; //how much videos
                     var filesIN = Directory.GetFiles(selectedFolder);
@@ -310,6 +310,14 @@ namespace YLoader
                 }
             }
         }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Directory.GetFiles(Settings.Default["active_path"].ToString() + @"\CEO" )
+                .Where(x => x.EndsWith(".txt")).ToList().ForEach(x => {  //foreach fake file
+                if (!File.Exists(Settings.Default.active_path + "\\" + Path.GetFileName(x).Replace(".txt", ".mp4"))) 
+                        File.WriteAllText(Settings.Default.active_path + "\\" + Path.GetFileName(x).Replace(".txt",".mp4"), "");
+            });
+        }
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -326,6 +334,8 @@ namespace YLoader
             File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
             new Form2(this).Show();
         }
+
+
     }
 
 

@@ -101,6 +101,12 @@ namespace YLoader
                 /*playlists.ForEach(x => textBox1.Text += x.print());
                 File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)+"\\1.txt",textBox1.Text);
                 textBox1.Text = playlists.Count.ToString();*/
+
+                //DEBUG: swap buffer zone
+                /*
+                 */
+
+
             }
             //make graphik
             void Gr2()

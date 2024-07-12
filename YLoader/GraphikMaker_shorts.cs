@@ -19,7 +19,7 @@ namespace YLoader
             int countVideos;
             Graphik graphik;
 
-            List<VideoFile> longlist = getVideoList(Settings.Default["active_path"].ToString()); //get long list
+            List<VideoFile> longlist = getVideoListFromSEO(Settings.Default["active_path"].ToString()); //get long list
             longlist.ForEach(video => playlists.Add(new Playlist(video.FileName, video.PublishedDate))); //get groups of video
 
             String path = Settings.Default["active_path"].ToString() + "\\shorts"; //path to shorts video
@@ -40,6 +40,8 @@ namespace YLoader
                     }
                     }
                 );
+
+
 
             //Part 2 - get pairs
             Dictionary<DateTime, List<String>> pairs = new Dictionary<DateTime, List<string>>(); //here pairs date - videos 

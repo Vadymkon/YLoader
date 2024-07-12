@@ -36,6 +36,52 @@ namespace YLoader
             no_pairs();
             no_pairs();
             no_pairs();
+
+            /* DEBUG
+           // var names = playlists.Select(x => x.NameOfPlaylist).ToList();
+            putPlaylistOnPlace("sednoch");
+            putPlaylistOnPlace("sed");
+            putPlaylistOnPlace("molci");
+            putPlaylistOnPlace("молчи76");
+            putPlaylistOnPlace("bakamitai");
+            putPlaylistOnPlace("he");
+            putPlaylistOnPlace("somn");
+            putPlaylistOnPlace("mabut");
+            putPlaylistOnPlace("Сведение");
+            putPlaylistOnPlace("mabuc");
+            putPlaylistOnPlace("v");
+            putPlaylistOnPlace("nepersong");
+            putPlaylistOnPlace("ywok");
+            putPlaylistOnPlace("pole");
+            putPlaylistOnPlace("li");
+            putPlaylistOnPlace("prof");
+            putPlaylistOnPlace("chatsong");
+            putPlaylistOnPlace("princesong");
+            putPlaylistOnPlace("IT");
+            putPlaylistOnPlace("bardsong");
+            putPlaylistOnPlace("sobabycollab");
+            putPlaylistOnPlace("go");
+
+            playlists.Reverse();
+            bool debug1 = true;
+            while (debug1)
+            {
+                var names = playlists.Select(x => x.NameOfPlaylist).ToList();
+                int i = 0;
+                int indexTO = 0;
+
+                 var buffer = playlists.First(x => x.NameOfPlaylist == name);
+            playlists.Remove(buffer);
+            playlists.Insert(index, buffer);
+            }
+            */
+        }
+
+        void putPlaylistOnPlace(string name, int index = 0)
+        {
+            var buffer = playlists.First(x => x.NameOfPlaylist == name);
+            playlists.Remove(buffer);
+            playlists.Insert(index, buffer);
         }
 
         public void no_pairs()

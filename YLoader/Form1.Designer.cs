@@ -61,6 +61,7 @@ namespace YLoader
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -567,13 +568,23 @@ namespace YLoader
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(854, 211);
+            this.button9.Location = new System.Drawing.Point(854, 254);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(88, 38);
             this.button9.TabIndex = 0;
             this.button9.Text = "Get GR from SEO";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(854, 211);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(88, 37);
+            this.button10.TabIndex = 0;
+            this.button10.Text = "Fake-FILES By SEO";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // Form1
             // 
@@ -599,6 +610,7 @@ namespace YLoader
             this.Controls.Add(this.objectListView1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button9);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.yt_Button4);
@@ -649,6 +661,7 @@ namespace YLoader
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
     }
 }
 
