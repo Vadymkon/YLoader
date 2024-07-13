@@ -82,19 +82,26 @@ namespace YLoader
 
         public void putCEOInfo(String pathToFile)
         {
-            //comfortness for this method
-            if (!pathToFile.Contains(FileName)) //if this is path to CEO directory - not to file
+            // Comfortness for this method
+            if (!pathToFile.Contains(FileName)) // If this is path to CEO directory - not to file
                 pathToFile += $"\\{FileName}.txt";
 
-            //safety existings
+            // Safety existings
             if (!File.Exists(pathToFile)) return;
 
-            File.ReadAllLines(pathToFile).ToList().ForEach(x => //for each line (parameter)
+            string fileContent = File.ReadAllText(pathToFile); // Read the entire file content
+            List<String> lines = fileContent.Split('\n').ToList(); // Split the content into lines
+
+            string multilineDescription = "";
+            bool isDescription = false;
+
+            lines.ForEach(x => // For each line (parameter)
             {
-                List <String> parameters = x.Split('~').ToList(); //slice it to name and value
-                if (parameters.Count > 0) //if there's not empty line
-                switch (parameters[0].Trim()) // see name of parameter
+                List<String> parameters = x.Split('~').ToList(); // Slice it to name and value
+                if (parameters.Count > 0) // If there's not an empty line
                 {
+                    switch (parameters[0].Trim()) // See name of parameter
+                    {
                         case "FileName":
                             FileName = parameters[1].Trim();
                             break;
@@ -102,13 +109,14 @@ namespace YLoader
                             Title = parameters[1].Trim();
                             break;
                         case "Description":
-                            Description = parameters[1].Trim();
+                            isDescription = true;
+                            multilineDescription = parameters[1].Trim();
                             break;
                         case "Tags":
                             if (parameters[1].Trim().Length < 470)
-                            Tags = parameters[1].Trim().Split(',').ToList().Select(y => y.Trim()).ToArray();
-                            else 
-                            Tags = parameters[1].Trim().Substring(0,470).Split(',').ToList().Select(y => y.Trim()).ToArray(); //safety over 500 symbols 
+                                Tags = parameters[1].Trim().Split(',').ToList().Select(y => y.Trim()).ToArray();
+                            else
+                                Tags = parameters[1].Trim().Substring(0, 470).Split(',').ToList().Select(y => y.Trim()).ToArray(); // Safety over 500 symbols 
                             break;
                         case "CategoryID":
                             CategoryID = parameters[1].Trim();
@@ -125,8 +133,17 @@ namespace YLoader
                         case "Id":
                             Id = parameters[1].Trim();
                             break;
+                        default:
+                            if (isDescription) // If still reading the description
+                                multilineDescription += "\n" + x.Trim();
+                            break;
+                    }
                 }
             });
+
+            if (isDescription)
+                Description = multilineDescription.Trim();
+
             IsHaveCEOfile = true;
 
             Description = Description.Replace("{descr}", Settings.Default.def_descr);
@@ -134,9 +151,9 @@ namespace YLoader
             Description = Description.Replace(">", "");
             Title = Title.Replace(">", "");
             Title = Title.Replace(">", "");
-            if (Title.Length >= 99) Title.Substring(0,99);
-
+            if (Title.Length >= 99) Title = Title.Substring(0, 99);
         }
-    //
+
+        //
     }
 }

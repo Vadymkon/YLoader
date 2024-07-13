@@ -38,28 +38,28 @@ namespace YLoader
             no_pairs();
 
             /* DEBUG
-           // var names = playlists.Select(x => x.NameOfPlaylist).ToList();
-            putPlaylistOnPlace("sednoch");
+            var names = playlists.Select(x => x.NameOfPlaylist).ToList();
+
             putPlaylistOnPlace("sed");
             putPlaylistOnPlace("molci");
             putPlaylistOnPlace("молчи76");
-            putPlaylistOnPlace("bakamitai");
-            putPlaylistOnPlace("he");
             putPlaylistOnPlace("somn");
+            putPlaylistOnPlace("bakamitai");
             putPlaylistOnPlace("mabut");
-            putPlaylistOnPlace("Сведение");
-            putPlaylistOnPlace("mabuc");
-            putPlaylistOnPlace("v");
             putPlaylistOnPlace("nepersong");
-            putPlaylistOnPlace("ywok");
             putPlaylistOnPlace("pole");
-            putPlaylistOnPlace("li");
-            putPlaylistOnPlace("prof");
-            putPlaylistOnPlace("chatsong");
             putPlaylistOnPlace("princesong");
-            putPlaylistOnPlace("IT");
+            putPlaylistOnPlace("chatsong");
+            putPlaylistOnPlace("li");
             putPlaylistOnPlace("bardsong");
+            putPlaylistOnPlace("mabuc");
+            putPlaylistOnPlace("he");
+            putPlaylistOnPlace("Сведение");
+            putPlaylistOnPlace("v");
+            putPlaylistOnPlace("ywok");
             putPlaylistOnPlace("sobabycollab");
+            putPlaylistOnPlace("prof");
+            putPlaylistOnPlace("IT");
             putPlaylistOnPlace("go");
 
             playlists.Reverse();

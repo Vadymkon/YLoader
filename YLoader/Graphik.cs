@@ -140,7 +140,7 @@ namespace YLoader
             });
             List <VideoFile> b = GetVideoFiles(); //original list without dates
 
-            b.ForEach(x => {x.PublishedDate = a.First(y => y.FileName.Contains(x.FileName)).PublishedDate;});
+            b.ForEach(x => {x.PublishedDate = a.First(y => y.FileName == x.FileName).PublishedDate;});
             b.ForEach(x => x.saveCEOInfo(pathToCEO));
 
         }
