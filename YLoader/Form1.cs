@@ -22,20 +22,13 @@ using System.Diagnostics;
 using Microsoft.CSharp.RuntimeBinder;
 using System.Configuration;
 using YLoader.Properties;
-/*
-using Google.GData.Extensions;
-using Google.GData.YouTube;
-using Google.GData.Extensions.MediaRss;
-using Google.YouTube;
-using Google.GData.Client;
-using System.Diagnostics;
-*/
+
 namespace YLoader
 {
     public partial class Form1 : Form
     {
         String active_path = ""; 
-        public YTStaff yt;
+        public YouTubeApi yt;
         public Form1()
         {
             InitializeComponent();
@@ -54,7 +47,7 @@ namespace YLoader
             egoldsToggleSwitch1.Checked = Convert.ToBoolean(Settings.Default["open_form2"]); // check parametrs
 
             // oauth2.0
-            yt = new YTStaff();
+            yt = new YouTubeApi();
 
 
             //def description update
@@ -76,7 +69,7 @@ namespace YLoader
             /*yt.getListOfMyVideos();
             yt.UpdateVideo(new VideoFile("2",@"C:\Users\vadymkon\Desktop"));*/
             // yt.ThumbnailSetResponse(new VideoFile("2", @"C:\Users\vadymkon\Desktop"));
-            yt.UpdateVideo(new VideoFile("obijmy", @"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\CEO"));
+            yt.UpdateVideoInfo(new VideoFile("obijmy", @"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\CEO"));
 
             MessageBox.Show("done");
         }
@@ -106,7 +99,7 @@ namespace YLoader
         
         void yt_Button1_Click(object sender, EventArgs e) //main big button
         {
-            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt")) MakeGraphik();
+            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt")) ScheduleMaker.MakeGraphik();
             new Form2(this).Show();
         }
         
@@ -114,7 +107,7 @@ namespace YLoader
         {
             MessageBox.Show("Now several sites are going to open. \r\nPlease login in your chosen account \r\nfor managing video several times. \r\n\r\n(if you will login into different \r\naccounts - result of working is your deal :) )","ATTENTION!");
             yt.Refresh();
-            yt = new YTStaff();
+            yt = new YouTubeApi();
         }
 
         async void yt_Button5_Click(object sender, EventArgs e) //Mailing
@@ -149,8 +142,8 @@ namespace YLoader
         async void yt_Button7_Click(object sender, EventArgs e) //MakeGraphik
         {
             await Task.Run(() => {
-                MakeGraphik();
-                MakeGraphikSh(new DateTime(2024, 06, 01));
+                ScheduleMaker.MakeGraphik();
+                ScheduleMaker.MakeGraphikSh(new DateTime(2024, 07, 22));
             }); 
         }
 
@@ -215,7 +208,7 @@ namespace YLoader
 
         void yt_Button10_Click(object sender, EventArgs e) //Thumbnails UPLOAD
         {
-            var a = getVideoList().Where(x => x.Id != "").ToList(); //get Id-in videos
+            var a = SMethods.getVideoList().Where(x => x.Id != "").ToList(); //get Id-in videos
             egoldsProgressBar1.ValueMaximum = a.Count; //progressbar settings
             
             a.ForEach(x => { yt.ThumbnailSetResponse(x); //thumbnails uploading
@@ -241,7 +234,7 @@ namespace YLoader
 
                     Directory.CreateDirectory(selectedFolder + "\\monthNext"); //create
                     String pathToGrSH = Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt"; //path
-                    if (!File.Exists(pathToGrSH)) MakeGraphikSh( new DateTime(2024,06,01)); //safety
+                    if (!File.Exists(pathToGrSH)) ScheduleMaker.MakeGraphikSh( new DateTime(2024, 07, 22)); //safety
                     Graphik a = new Graphik(pathToGrSH); //get GR object
                     int count = a.queueDT.Where(x => x <= DateTime.Now.AddDays(30)).ToList().Count; //how much videos
                     var filesIN = Directory.GetFiles(selectedFolder);
@@ -260,7 +253,7 @@ namespace YLoader
 
         private void button4_Click(object sender, EventArgs e)
         {
-            saveIdsToCEO();
+            SMethods.saveIdsToCEO();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -322,7 +315,7 @@ namespace YLoader
         private void button9_Click(object sender, EventArgs e)
         {
 
-            var videoFiles = getVideoListFromSEO(); // vFiles
+            var videoFiles = SMethods.getVideoListFromSEO(); // vFiles
             videoFiles = videoFiles.OrderBy(x => x.PublishedDate).ToList();
             //data
             String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
@@ -339,37 +332,5 @@ namespace YLoader
     }
 
 
-    static class MyExtensions
-    {
-        private static Random rng = new Random();
-
-        public static void Shuffle<T>(this IList<T> list)
-        {
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
-        }
-
-        public static DateTime toDateTime(this String line)
-        {
-            List<int> datePartList = line.Trim().Split('.').ToList().Select(y => Convert.ToInt32(y)).ToList();
-            DateTime PublishedDate = new DateTime(datePartList[2], datePartList[1], datePartList[0]);
-            return PublishedDate;
-        }
-
-        public static String formatOff(this String line)
-        {
-            List<String> Symbols = new List<string> { ".", "_" }; //to space
-            Symbols.ForEach(x => { line = line.Replace(x, " "); });
-            List<String> SymbolsOff = new List<string> { "(", ")" }; //symbols which replacing to NOTHING
-            SymbolsOff.ForEach(x => { line = line.Replace(x, ""); });
-            return line.ToLower().Trim();
-        }
-    }
+   
 }

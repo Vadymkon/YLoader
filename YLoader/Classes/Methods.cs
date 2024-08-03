@@ -14,13 +14,14 @@ using YLoader.Properties;
 
 namespace YLoader
 {
-    public partial class Form1 : Form
+    public static class SMethods
     {
+        // TODO : Change this staff to JSON (make another class for it)
         /// <summary>
         /// Rewrite ALL CEO to empty template.
         /// </summary>
         /// <param name="path">pathWhereVideo</param>
-        void makeCEO_forAllVideos(String path = "")
+        static public void makeCEO_forAllVideos(String path = "")
         {
             // for all videos make CEO
             if (path == "") path = Settings.Default["active_path"].ToString(); //default way
@@ -33,7 +34,7 @@ namespace YLoader
                 });
         }
 
-        void makeCEO_forListVideos(List<VideoFile> videos, String path = "")
+        static public void makeCEO_forListVideos(List<VideoFile> videos, String path = "")
         {
             // for all videos make CEO
             if (path == "") path = Settings.Default["active_path"].ToString(); //default way
@@ -42,7 +43,7 @@ namespace YLoader
             videos.ForEach(x => x.saveCEOInfo(pathCEO));
         }
 
-        List<VideoFile> getVideoList(String path = "")
+        static public List<VideoFile> getVideoList(String path = "")
         {
             List<VideoFile> videos = new List<VideoFile>();
             // for all videos make CEO
@@ -59,7 +60,7 @@ namespace YLoader
             return videos;
         }
 
-        List<VideoFile> getVideoListFromSEO(String path = "")
+        static public List<VideoFile> getVideoListFromSEO(String path = "")
         {
             List<VideoFile> videos = new List<VideoFile>();
             // for all videos make CEO
@@ -76,12 +77,12 @@ namespace YLoader
             return videos;
         }
 
-        async void saveIdsToCEO()
+        static public async void saveIdsToCEO()
         {
-            var a = new YTStaff();
+            var a = new YouTubeApi();
             await a.getListOfMyVideos(); //videos from youtube
 
-            var b = getVideoList(); // vFiles
+            var b = SMethods.getVideoList(); // vFiles
 
             b.ForEach(x =>
             {
@@ -96,10 +97,17 @@ namespace YLoader
         
 
 
+        
+
+        //
+    }
+
+    public partial class Form1 : Form
+    {
         void CEO_settings()
         {
             //table settings
-            List<VideoFile> videos = getVideoList(); //list with videos
+            List<VideoFile> videos = SMethods.getVideoList(); //list with videos
             //table
             objectListView1.GetColumn(0).AspectToStringConverter = delegate (object x)
             { //for all filenames
@@ -125,7 +133,7 @@ namespace YLoader
                     new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt")
                     .writeDatesToCEO(Settings.Default["active_path"].ToString() + @"\CEO",
                         Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
-                    saveIdsToCEO();
+                    SMethods.saveIdsToCEO();
                 }); //link-action
             }
         }
@@ -173,7 +181,7 @@ namespace YLoader
             while (process.Any(x => !x.HasExited)) await Task.Delay(2000).ConfigureAwait(false); //is notepad still open
 
             Console.WriteLine("TABLE IS RELOADED ASYNC."); //logs
-            table1Reload(getVideoList()); //reset elements
+            table1Reload(SMethods.getVideoList()); //reset elements
             Invoke(new Action(() => //bcs thread-error
             {
                 objectListView1.LowLevelScroll(0, scrollpos * 8); //scrollsave
@@ -196,7 +204,7 @@ namespace YLoader
                    egoldsProgressBar1.ValueMaximum = vf.Count;
 
 
-                   DateTime dateTimeCURR = new DateTime(), 
+                   DateTime dateTimeCURR = new DateTime(),
                             dateTimeBEF = new DateTime(); //dateTime buffers
                    int againer = 0; //
 
@@ -227,12 +235,13 @@ namespace YLoader
                        }
 
                        //stahdart update
-                       yt.UpdateVideo(x,hours);
+                       x.PublishedDate = x.PublishedDate.AddHours(hours);
+                       yt.UpdateVideoInfo(x);
                        ++egoldsProgressBar1.Value;
                        label3.Text = $"Загружено {egoldsProgressBar1.Value}";
 
                        if (Shorts)
-                       dateTimeBEF = dateTimeCURR;
+                           dateTimeBEF = dateTimeCURR;
                    });
                    new Form2(this).Show();
                }));
@@ -267,8 +276,6 @@ namespace YLoader
                 a.ToList().IndexOf(Settings.Default["active_path"].ToString()) //active path
             : a.Length - 1; //last
         }
-
-        //
     }
 
     public partial class Form2 : Form
@@ -308,7 +315,7 @@ namespace YLoader
                         {
                             try
                             {
-                                a.SaveGRtoFile(videoFiles, egoldsGoogleTextBox2.Text);
+                                ScheduleMaker.SaveGRtoFile(videoFiles, egoldsGoogleTextBox2.Text);
                             }
                             catch
                             {
@@ -428,7 +435,7 @@ namespace YLoader
                 else
                 {
                     if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt"))
-                        Task.Run(() => { parentForm.MakeGraphikSh((new DateTime(2024, 06, 01))); }).Wait(); //if GR-SH doesn't exist - improve it
+                        Task.Run(() => { ScheduleMaker.MakeGraphikSh((new DateTime(2024, 06, 01))); }).Wait(); //if GR-SH doesn't exist - improve it
                     a = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt");
                 }
             }

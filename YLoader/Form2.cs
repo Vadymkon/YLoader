@@ -66,7 +66,7 @@ namespace YLoader
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                new Form1().MakeGraphik(openFileDialog.FileNames.ToList().Select(x => Path.GetFileName(x)).ToList(),true); //files into
+                ScheduleMaker.MakeGraphik(openFileDialog.FileNames.ToList().Select(x => Path.GetFileName(x)).ToList(),true); //files into
                 
                 string selectedFolder = Path.GetDirectoryName(openFileDialog.FileName);
                 if (!Settings.Default["paths"].ToString().Contains(selectedFolder))
@@ -114,7 +114,7 @@ namespace YLoader
                 Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
             
             // Make NEW SH-GR
-            using (Form1 a = new Form1()) a.MakeGraphikSh(egoldsGoogleTextBox2.Text.toDateTime());
+            ScheduleMaker.MakeGraphikSh(egoldsGoogleTextBox2.Text.toDateTime());
             // Update table
             objectListView1.SetObjects(b.GetVideoFiles());
         } 

@@ -54,7 +54,7 @@ namespace YLoader
             List<string> lines = textBox1.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList(); //get lines from textbox
             Graphik gr = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history" + "/_graphik.txt"); //get graphik
             gr.insert(lines, egoldsGoogleTextBox1.Text); //insert this videos
-            using (var a = new Form1()) a.SaveGRtoFile(gr.getInsertedVideoFiles()); //save GRaffik
+            ScheduleMaker.SaveGRtoFile(gr.getInsertedVideoFiles()); //save GRaffik
 
             //change form
             new Form2(parentForm).Show();

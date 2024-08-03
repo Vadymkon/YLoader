@@ -52,7 +52,11 @@ namespace YLoader
                 if (File.Exists(Settings.Default["active_path"].ToString() + @"\CEO\"+x+".txt"))
                     videoFiles.Add(new VideoFile(x.Trim(), Settings.Default["active_path"].ToString() + @"\CEO"));
                 else
-                    videoFiles.Add(new VideoFile(x.Trim(), queueDT[queue.IndexOf(x)]));
+                {
+                    var a = new VideoFile(x.Trim());
+                    a.PublishedDate = a.PublishedDate.Add(TimeSpan.Parse(queueDT[queue.IndexOf(x)].ToLongDateString())); // TODO: here can be problems
+                    videoFiles.Add(a);
+                }
             });
             return videoFiles;
         }
@@ -129,13 +133,16 @@ namespace YLoader
         public void writeDatesToCEO(String pathToCEO, String pathToGraphik)
         {
             List <VideoFile> a = new List<VideoFile>(); //making list for comparing
+            VideoFile buffer = null;
             //get file
             File.ReadAllLines(pathToGraphik).ToList().ForEach(x => { //for each line
-                if (x.Contains(':'))
-                {
-                    List<String> arr = x.Split(':').ToList(); //split
-                    if (arr[1].EndsWith(".")) arr[1] = arr[1].Substring(0, arr[1].Length - 1);
-                    a.Add(new VideoFile(arr[1].Trim(), arr[0].Trim().toDateTime())); //add element to list
+            if (x.Contains(':'))
+            {
+                List<String> arr = x.Split(':').ToList(); //split
+                if (arr[1].EndsWith(".")) arr[1] = arr[1].Substring(0, arr[1].Length - 1);
+                    buffer = new VideoFile(arr[1].Trim());
+                    buffer.PublishedDate = arr[0].Trim().toDateTime();
+                    a.Add(buffer); //add element to list
                 }
             });
             List <VideoFile> b = GetVideoFiles(); //original list without dates

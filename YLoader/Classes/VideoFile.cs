@@ -9,7 +9,7 @@ using YLoader.Properties;
 
 namespace YLoader
 {
-    class VideoFile
+    public class VideoFile
     {
         //types are made for Video the class of YT lib
         public String FileName = "";
@@ -33,10 +33,10 @@ namespace YLoader
             FileName = filename;
             putCEOInfo(pathToCEO+"\\"+filename+".txt");
         }
-        public VideoFile(String filename, DateTime date)
+        public VideoFile(String filename, DateTime date, int hours)
         {
             FileName = filename;
-            PublishedDate = date;
+            PublishedDate = date.AddHours(hours);
         }
 
         public void setPDate(DateTime dateTime) { PublishedDate = dateTime; }

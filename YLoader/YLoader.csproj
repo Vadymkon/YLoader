@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>YLoader</RootNamespace>
     <AssemblyName>YLoader</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,10 +78,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mail.cs" />
-    <Compile Include="Methods.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Classes\API\MetaApi.cs" />
+    <Compile Include="Classes\API\TelegramApi.cs" />
+    <Compile Include="Classes\API\TikTokApi.cs" />
+    <Compile Include="Classes\API\VideoApp.cs" />
+    <Compile Include="Classes\Mail.cs" />
+    <Compile Include="Classes\Methods.cs" />
+    <Compile Include="Classes\FileHandling\SFileReader.cs" />
+    <Compile Include="Classes\FileHandling\SFileSaver.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,21 +105,14 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graphik.cs" />
-    <Compile Include="GraphikMaker_shorts.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GraphikMaker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Playlist.cs" />
-    <Compile Include="Playlist_s.cs" />
+    <Compile Include="Classes\Graphik.cs" />
+    <Compile Include="Classes\GraphikMaker.cs" />
+    <Compile Include="Classes\Playlist.cs" />
+    <Compile Include="Classes\Playlist_s.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VideoFile.cs" />
-    <Compile Include="YTStaff.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Classes\VideoFile.cs" />
+    <Compile Include="Classes\API\YouTubeApi.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +130,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Content Include="client_secrets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -158,6 +158,9 @@
       <Project>{41573ee5-b877-4f9f-a173-b432995e6382}</Project>
       <Name>yt_DesignUI</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
