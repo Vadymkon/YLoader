@@ -150,16 +150,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ObjectListViewDemo\ObjectListView\ObjectListView2012.csproj">
-      <Project>{76b09869-b254-447c-92f9-7537c531acf8}</Project>
-      <Name>ObjectListView2012</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WinFormsUserInterface-master\yt_DesignUI\yt_DesignUI.csproj">
-      <Project>{41573ee5-b877-4f9f-a173-b432995e6382}</Project>
-      <Name>yt_DesignUI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
