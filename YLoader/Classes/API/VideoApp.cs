@@ -10,7 +10,7 @@ namespace YLoader.Classes.API
     {
         // string Name { get; set; }
 
-        void Auth();
+        void Auth(string login, string password);
         void Disconnect();
         void UploadVideo(VideoFile vFile);
         void UpdateVideoInfo(VideoFile vFile);
@@ -27,9 +27,9 @@ namespace YLoader.Classes.API
             this.VA = videoApp;
         }
 
-        public void Auth()
+        public void Auth(string login, string password)
         {
-            this.VA.Auth();
+            this.VA.Auth(login, password);
         }
 
         public void UpdateVideoInfo(VideoFile vFile)

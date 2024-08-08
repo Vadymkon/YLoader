@@ -13,12 +13,13 @@ namespace YLoader
     {
         //types are made for Video the class of YT lib
         public String FileName = "";
-        public String Title = "";
+        public String Title = "TestTITLE";
         public String Description = "";
         public String[] Tags = new string[] { }; //  { "tag1", "tag2" };
         public String CategoryID= "22";
         public DateTime PublishedDate = new DateTime();
         public String Id = "";
+        public String pathToVideo = "";
 
         public bool Uploaded = false;
         public bool Published = false;
@@ -31,7 +32,9 @@ namespace YLoader
         public VideoFile(String filename, string pathToCEO)
         {
             FileName = filename;
-            putCEOInfo(pathToCEO+"\\"+filename+".txt");
+           // putCEOInfo(pathToCEO+"\\"+filename+".txt");
+
+            pathToVideo = pathToCEO + "\\" + filename;
         }
         public VideoFile(String filename, DateTime date, int hours)
         {

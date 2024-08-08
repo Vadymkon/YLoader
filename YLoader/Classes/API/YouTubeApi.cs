@@ -28,9 +28,9 @@ namespace YLoader
         String channel_name = "";
         public YouTubeApi()
         {
-            Auth();
+            Auth("", "");
         }
-        public async void Auth()
+        public async void Auth(string login, string password)
         {
 
             /*                //UserCredential credential;

@@ -22,6 +22,8 @@ using System.Diagnostics;
 using Microsoft.CSharp.RuntimeBinder;
 using System.Configuration;
 using YLoader.Properties;
+using YLoader.Classes.API;
+using YLoader.Classes;
 
 namespace YLoader
 {
@@ -62,18 +64,31 @@ namespace YLoader
             //MakeGraphik();
         }
 
-        async void button1_Click(object sender, EventArgs e) //TEST-Button
+            MetaApi a;
+        void button1_Click(object sender, EventArgs e) //TEST-Button
         {
+            a = new MetaApi();
+
+            a.Auth("gogokon.neko4@gmail.com", "pY]N852#");
+            
+            // a.Auth();
+            a.UploadVideo(new VideoFile("AAAA_1.mp4",@"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\shorts"));
+
             //UploadVideo(@"C:\Users\vadymkon\Desktop\test.mp4","test","test Description");
             //RunSomethink(); //upload test video
             /*yt.getListOfMyVideos();
             yt.UpdateVideo(new VideoFile("2",@"C:\Users\vadymkon\Desktop"));*/
             // yt.ThumbnailSetResponse(new VideoFile("2", @"C:\Users\vadymkon\Desktop"));
-            yt.UpdateVideoInfo(new VideoFile("obijmy", @"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\CEO"));
+           // yt.UpdateVideoInfo(new VideoFile("obijmy", @"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\CEO"));
 
-            MessageBox.Show("done");
+            //MessageBox.Show("done");
         }
-        
+
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+        }
+
         void button2_Click(object sender, EventArgs e) //save template of mails-sending
         {
             using (OpenFileDialog fileDialog = new OpenFileDialog()) //fileDialog
@@ -327,7 +342,6 @@ namespace YLoader
             File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
             new Form2(this).Show();
         }
-
 
     }
 

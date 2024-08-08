@@ -8,7 +8,7 @@ namespace YLoader.Classes.API
 {
     public class TikTokApi : VideoApp
     {
-        public void Auth()
+        public void Auth(string login, string password)
         {
 
         }
