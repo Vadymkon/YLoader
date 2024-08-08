@@ -72,7 +72,7 @@ namespace YLoader
             a.Auth("gogokon.neko4@gmail.com", "pY]N852#");
             
             // a.Auth();
-            a.UploadVideo(new VideoFile("AAAA_1.mp4",@"D:\vadymkon\youtube\НЕКАНОН\Готовый материал\shorts"));
+            a.UploadVideo(new VideoFile("AAAA_1.mp4"));
 
             //UploadVideo(@"C:\Users\vadymkon\Desktop\test.mp4","test","test Description");
             //RunSomethink(); //upload test video
@@ -223,7 +223,7 @@ namespace YLoader
 
         void yt_Button10_Click(object sender, EventArgs e) //Thumbnails UPLOAD
         {
-            var a = SMethods.getVideoList().Where(x => x.Id != "").ToList(); //get Id-in videos
+            var a = SFileReader.LoadVideosFromJson().Where(x => x.Id != "").ToList(); //get Id-in videos
             egoldsProgressBar1.ValueMaximum = a.Count; //progressbar settings
             
             a.ForEach(x => { yt.ThumbnailSetResponse(x); //thumbnails uploading
@@ -330,7 +330,7 @@ namespace YLoader
         private void button9_Click(object sender, EventArgs e)
         {
 
-            var videoFiles = SMethods.getVideoListFromSEO(); // vFiles
+            var videoFiles = SFileReader.LoadVideosFromJson(); // vFiles
             videoFiles = videoFiles.OrderBy(x => x.PublishedDate).ToList();
             //data
             String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";

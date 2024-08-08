@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YLoader.Classes;
 using YLoader.Properties;
 
 namespace YLoader
@@ -47,10 +48,12 @@ namespace YLoader
         public List<VideoFile> GetVideoFiles()
         {
             List<VideoFile> videoFiles = new List<VideoFile>();
+            List<VideoFile> existringVideoFiles = SFileReader.LoadVideosFromJson();
+
             queue.ForEach(x =>
             {
-                if (File.Exists(Settings.Default["active_path"].ToString() + @"\CEO\"+x+".txt"))
-                    videoFiles.Add(new VideoFile(x.Trim(), Settings.Default["active_path"].ToString() + @"\CEO"));
+                if (existringVideoFiles.Any(y => y.FileName == x.Trim()))
+                    videoFiles.Add(existringVideoFiles.First(y => y.FileName == x.Trim()));
                 else
                 {
                     var a = new VideoFile(x.Trim());
@@ -148,8 +151,7 @@ namespace YLoader
             List <VideoFile> b = GetVideoFiles(); //original list without dates
 
             b.ForEach(x => {x.PublishedDate = a.First(y => y.FileName == x.FileName).PublishedDate;});
-            b.ForEach(x => x.saveCEOInfo(pathToCEO));
-
+            SFileSaver.SaveVideosToJson(b);
         }
 
     }

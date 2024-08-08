@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YLoader.Classes;
 using YLoader.Properties;
 
 namespace YLoader
@@ -25,56 +26,16 @@ namespace YLoader
         {
             // for all videos make CEO
             if (path == "") path = Settings.Default["active_path"].ToString(); //default way
-            String pathCEO = path + @"\CEO";
-            Directory.CreateDirectory(pathCEO);
-            Directory.GetFiles(path).ToList().Where(x => x.EndsWith(".mp4")).ToList() //for all videos
-                .ForEach(x =>
-                {
-                    new VideoFile(x.Replace(path + @"\", "").Replace(".mp4", "")).saveCEOInfo(pathCEO); //save
-                });
-        }
+            String pathCEO = SystemPaths.getSEOPath(path);
+            File.Create(pathCEO);
 
-        static public void makeCEO_forListVideos(List<VideoFile> videos, String path = "")
-        {
-            // for all videos make CEO
-            if (path == "") path = Settings.Default["active_path"].ToString(); //default way
-            String pathCEO = path + @"\CEO";
-            Directory.CreateDirectory(pathCEO);
-            videos.ForEach(x => x.saveCEOInfo(pathCEO));
-        }
-
-        static public List<VideoFile> getVideoList(String path = "")
-        {
-            List<VideoFile> videos = new List<VideoFile>();
-            // for all videos make CEO
-            if (path == "") path = Settings.Default["active_path"].ToString(); //default way
-            String pathCEO = path + @"\CEO";
-            Directory.CreateDirectory(pathCEO);
-            Directory.GetFiles(path).ToList().Where(x => x.EndsWith(".mp4")).ToList() //for all videos
-                .ForEach(x =>
-                {
-                    VideoFile a = new VideoFile(x.Replace(path + @"\", "").Replace(".mp4", "")); //загрузка правильного FileName
-                    a.putCEOInfo(pathCEO); //getCEOinfo
-                    videos.Add(a);
-                });
-            return videos;
-        }
-
-        static public List<VideoFile> getVideoListFromSEO(String path = "")
-        {
-            List<VideoFile> videos = new List<VideoFile>();
-            // for all videos make CEO
-            if (path == "") path = Settings.Default["active_path"].ToString(); //default way
-            String pathCEO = path + @"\CEO";
-            Directory.CreateDirectory(pathCEO);
-            Directory.GetFiles(pathCEO).ToList().Where(x => x.EndsWith(".txt")).ToList() //for all videos
-                .ForEach(x =>
-                {
-                    VideoFile a = new VideoFile(x.Replace(pathCEO + @"\", "").Replace(".txt", "")); //загрузка правильного FileName
-                    a.putCEOInfo(pathCEO); //getCEOinfo
-                    videos.Add(a);
-                });
-            return videos;
+            SFileSaver.SaveVideosToJson(
+                Directory.GetFiles(path)
+                .Where(x => x.EndsWith(".mp4")) //for all videos
+                .Select(x => new VideoFile(x.Replace(path + @"\", "")
+                .Replace(".mp4", "")))
+                .ToList()//save
+            );
         }
 
         static public async void saveIdsToCEO()
@@ -82,7 +43,7 @@ namespace YLoader
             var a = new YouTubeApi();
             await a.getListOfMyVideos(); //videos from youtube
 
-            var b = SMethods.getVideoList(); // vFiles
+            var b = SFileReader.LoadVideosFromJson(); // vFiles
 
             b.ForEach(x =>
             {
@@ -91,7 +52,7 @@ namespace YLoader
                 if (videosComparing.Count > 0) x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
             }); //finding Id for this
 
-            b.ForEach(x => x.saveCEOInfo(Settings.Default["active_path"].ToString() + @"\CEO"));
+            SFileSaver.SaveVideosToJson(b);
         }
 
         
@@ -107,7 +68,7 @@ namespace YLoader
         void CEO_settings()
         {
             //table settings
-            List<VideoFile> videos = SMethods.getVideoList(); //list with videos
+            List<VideoFile> videos = SFileReader.LoadVideosFromJson(); //list with videos
             //table
             objectListView1.GetColumn(0).AspectToStringConverter = delegate (object x)
             { //for all filenames
@@ -126,7 +87,7 @@ namespace YLoader
                 linkLabel1.Visible = true;
                 linkLabel1.Click += new System.EventHandler((a, e) =>
                 {
-                    videosWithoutCEO.ForEach(x => x.saveCEOInfo(active_path));
+                    SFileSaver.SaveVideosToJson(videosWithoutCEO);
                     table1Reload(videos);
                     label2.Text = "";
                     linkLabel1.Visible = false;
@@ -181,7 +142,7 @@ namespace YLoader
             while (process.Any(x => !x.HasExited)) await Task.Delay(2000).ConfigureAwait(false); //is notepad still open
 
             Console.WriteLine("TABLE IS RELOADED ASYNC."); //logs
-            table1Reload(SMethods.getVideoList()); //reset elements
+            table1Reload(SFileReader.LoadVideosFromJson()); //reset elements
             Invoke(new Action(() => //bcs thread-error
             {
                 objectListView1.LowLevelScroll(0, scrollpos * 8); //scrollsave

@@ -147,11 +147,13 @@
     <Compile Include="Classes\API\TikTokApi.cs" />
     <Compile Include="Classes\API\VideoApp.cs" />
     <Compile Include="Classes\Browser.cs" />
+    <Compile Include="Classes\Description.cs" />
     <Compile Include="Classes\Mail.cs" />
     <Compile Include="Classes\Methods.cs" />
     <Compile Include="Classes\FileHandling\SFileReader.cs" />
     <Compile Include="Classes\FileHandling\SFileSaver.cs" />
     <Compile Include="Classes\PagePuppetter.cs" />
+    <Compile Include="Classes\FileHandling\SystemPaths.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
