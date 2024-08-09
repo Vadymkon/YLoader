@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YLoader.Classes;
 using YLoader.Properties;
 
 namespace YLoader
@@ -235,36 +236,34 @@ namespace YLoader
 
 
             //data
-            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
-            String saveGRdata = graphik.print_ForEvery3days(new DateTime(2024, 6, 1));
-            //saving
-            Directory.CreateDirectory(pathCEO);
+            String saveGRdata = graphik.print_ForEvery3days(DateTime.Now);
             if (addwrite)
             {
-                String[] file = File.ReadAllLines(pathCEO + "/_graphik.txt"); // save&print
+                String[] file = File.ReadAllLines(SystemPaths.getSEOFilePath()); // save&print
                 saveGRdata = "";
                 file.ToList().ForEach(line => saveGRdata += $"{line}\r\n");
                 saveGRdata += graphik.print_ForEvery3days(file.Last(x => x.Trim() != "").Split(':')[0].Trim().toDateTime().AddDays(3)); //get startdate from file
             }
 
-            File.WriteAllText(pathCEO + "/_graphik.txt", saveGRdata); // save&print
-            File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
+            SFileSaver.SaveGraphikToJson(graphik);
+            File.WriteAllText(SystemPaths.getHistoryNewGRFilePath(), saveGRdata); // save&print
 
         }
 
-        static public void SaveGRtoFile(List<VideoFile> videoFiles, String startDate = "01.06.2024")
+        static public void SaveGRtoFile(List<VideoFile> videoFiles, DateTime startDate)
         {
 
             //data
-            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
-            String saveGRdata = new Graphik(videoFiles).print_ForEvery3days(startDate.toDateTime());
-            Directory.CreateDirectory(pathCEO);
+            String pathCEO = SystemPaths.getSEOPath();
 
             //saving
-            File.WriteAllText(pathCEO + "/_graphik.txt", saveGRdata); // save&print
-            File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
+            File.WriteAllText(
+                SystemPaths.getUserFilesReadableFilePath(), 
+                new Graphik(videoFiles).print_ForEvery3days(startDate)
+                ); // save&print
+            SFileSaver.SaveVideosToJson(videoFiles);
 
-            ScheduleMaker.MakeGraphikSh(startDate.toDateTime());
+            ScheduleMaker.MakeGraphikSh(startDate);
         }
         static Tuple<int, int> indexes_p2p(int step)
         {
@@ -356,7 +355,7 @@ namespace YLoader
             int countVideos;
             Graphik graphik;
 
-            List<VideoFile> longlist = SMethods.getVideoListFromSEO(Settings.Default["active_path"].ToString()); //get long list
+            List<VideoFile> longlist = SFileReader.LoadVideosFromJson(); //get long list
             longlist.ForEach(video => playlists.Add(new Playlist(video.FileName, video.PublishedDate))); //get groups of video
 
             String path = Settings.Default["active_path"].ToString() + "\\shorts"; //path to shorts video
@@ -387,7 +386,7 @@ namespace YLoader
 
             //Part 2 - get pairs
             Dictionary<DateTime, List<String>> pairs = new Dictionary<DateTime, List<string>>(); //here pairs date - videos 
-            startDate = new DateTime(2024, 08, 1); // bad hardcode
+            startDate = DateTime.Now; // bad hardcode
             startDate = startDate.AddDays(-10);
             for (int i = 0; i < 750; i++) pairs.Add(startDate.AddDays(i), new List<String>()); //put for 2 years next empty slots
 
@@ -448,11 +447,26 @@ namespace YLoader
 
             //saving
             String message = "";
-            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
-            Directory.CreateDirectory(pathCEO);
             pairs.ToList().ForEach(pair => pair.Value.ForEach(videoname => message += $"{pair.Key.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {Path.GetFileName(videoname)}\r\n"));
-            File.WriteAllText(pathCEO + $"/GR_sh_{Directory.GetFiles(pathCEO).Length + 1}.txt", message);
-            File.WriteAllText(pathCEO + $"/_graphik_SH.txt", message);
+
+            List<VideoFile> shortVideos = new List<VideoFile>();
+
+            pairs.ToList().ForEach(pair =>
+
+            {
+                int i = 1;
+                pair.Value.ForEach(videoname =>
+                {
+                    var a = new VideoFile(Path.GetFileName(videoname).Replace(".mp4",""));
+                    a.PublishedDate = pair.Key.Date.AddHours(10 + 3*i); // + hours of publishing
+                    shortVideos.Add(a);
+                    i++; // + 3 hours
+                });
+            });
+            
+            SFileSaver.SaveShortsToJson(shortVideos);
+            File.WriteAllText(SystemPaths.getHistoryNewGRFilePath(), message);
+            File.WriteAllText(SystemPaths.getUserFilesReadableFilePath_Shorts(), message);
         }
     }
 }

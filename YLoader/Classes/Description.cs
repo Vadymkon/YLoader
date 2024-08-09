@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace YLoader.Classes
 {
-    internal class Description
+    public class Description
     {
+
     }
 }

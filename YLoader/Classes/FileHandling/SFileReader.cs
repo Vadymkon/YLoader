@@ -13,12 +13,12 @@ namespace YLoader.Classes
     {
         // Read from JSON
         public static List<VideoFile> LoadVideosFromJson(string filePath)
-        {
+        {   
             // Reading
             string json = File.ReadAllText(filePath);
             // Convert
             List<VideoFile> videos = JsonConvert.DeserializeObject<List<VideoFile>>(json);
-            return videos;
+            return videos ?? new List<VideoFile>();
         }
 
         public static VideoFile LoadVideo(string fileName, string filePath)
@@ -33,13 +33,31 @@ namespace YLoader.Classes
         // Read from JSON
         public static List<VideoFile> LoadVideosFromJson()
         {
-            return LoadVideosFromJson(SystemPaths.getSEOPath());
+            return LoadVideosFromJson(SystemPaths.getSEOFilePath());
         }
 
         public static VideoFile LoadVideo(string fileName)
         {
-            return LoadVideo(fileName, SystemPaths.getSEOPath());
+            return LoadVideo(fileName, SystemPaths.getSEOFilePath());
         }
+        
+        public static List<VideoFile> LoadShortsFromJson()
+        {
+            return LoadVideosFromJson(SystemPaths.getSEOFilePath_Shorts());
+        }
+        public static VideoFile LoadTemplateVideo()
+        {
+            List<VideoFile> a = LoadVideosFromJson(SystemPaths.getSEOTemplateFile());
+            //safety
+            if (a.Count < 1)
+            {
+                a.Add(new VideoFile("template")); // template short-data
+                SFileSaver.SaveVideosToJson(a,SystemPaths.getSEOTemplateFile(),true);
+                throw new Exception("Please write a template video file.");
+            }
+            return a.First();
+        }
+
 
     }
 }

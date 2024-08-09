@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YLoader.Classes;
 using YLoader.Properties;
 
 namespace YLoader
@@ -52,9 +53,9 @@ namespace YLoader
             }
 
             List<string> lines = textBox1.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList(); //get lines from textbox
-            Graphik gr = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history" + "/_graphik.txt"); //get graphik
+            Graphik gr = new Graphik(SFileReader.LoadVideosFromJson()); //get graphik
             gr.insert(lines, egoldsGoogleTextBox1.Text); //insert this videos
-            ScheduleMaker.SaveGRtoFile(gr.getInsertedVideoFiles()); //save GRaffik
+            ScheduleMaker.SaveGRtoFile(gr.getInsertedVideoFiles(), DateTime.Now); //save GRaffik
 
             //change form
             new Form2(parentForm).Show();

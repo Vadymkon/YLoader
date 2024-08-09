@@ -38,18 +38,26 @@ namespace YLoader
             this.egoldsToggleSwitch2 = new yt_DesignUI.EgoldsToggleSwitch();
             this.egoldsToggleSwitch1 = new yt_DesignUI.EgoldsToggleSwitch();
             this.egoldsGoogleTextBox2 = new yt_DesignUI.EgoldsGoogleTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.cmbStyle = new System.Windows.Forms.ComboBox();
             this.yt_Button13 = new yt_DesignUI.yt_Button();
             this.yt_Button12 = new yt_DesignUI.yt_Button();
             this.yt_Button10 = new yt_DesignUI.yt_Button();
             this.yt_Button8 = new yt_DesignUI.yt_Button();
-            this.yt_Button7 = new yt_DesignUI.yt_Button();
             this.yt_Button11 = new yt_DesignUI.yt_Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.egoldsGoogleTextBox3 = new yt_DesignUI.EgoldsGoogleTextBox();
+            this.egoldsToggleSwitch3 = new yt_DesignUI.EgoldsToggleSwitch();
+            this.egoldsToggleSwitch4 = new yt_DesignUI.EgoldsToggleSwitch();
+            this.egoldsGoogleTextBox1 = new yt_DesignUI.EgoldsGoogleTextBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.yt_Button1 = new yt_DesignUI.yt_Button();
+            this.yt_Button4 = new yt_DesignUI.yt_Button();
+            this.yt_Button9 = new yt_DesignUI.yt_Button();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // objectListView1
@@ -120,13 +128,11 @@ namespace YLoader
             this.panel2.Controls.Add(this.egoldsToggleSwitch2);
             this.panel2.Controls.Add(this.egoldsToggleSwitch1);
             this.panel2.Controls.Add(this.egoldsGoogleTextBox2);
-            this.panel2.Controls.Add(this.comboBox1);
             this.panel2.Controls.Add(this.cmbStyle);
             this.panel2.Controls.Add(this.yt_Button13);
             this.panel2.Controls.Add(this.yt_Button12);
             this.panel2.Controls.Add(this.yt_Button10);
             this.panel2.Controls.Add(this.yt_Button8);
-            this.panel2.Controls.Add(this.yt_Button7);
             this.panel2.Controls.Add(this.yt_Button11);
             this.panel2.Location = new System.Drawing.Point(518, 12);
             this.panel2.Name = "panel2";
@@ -182,21 +188,6 @@ namespace YLoader
             this.egoldsGoogleTextBox2.TextInput = "";
             this.egoldsGoogleTextBox2.TextPreview = "DD.MM.YYYY - start date";
             this.egoldsGoogleTextBox2.UseSystemPasswordChar = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "a_3d",
-            "a_sh"});
-            this.comboBox1.Location = new System.Drawing.Point(46, 0);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(224, 28);
-            this.comboBox1.TabIndex = 30;
-            this.comboBox1.Visible = false;
             // 
             // cmbStyle
             // 
@@ -329,36 +320,6 @@ namespace YLoader
             this.yt_Button8.UseZoomEffectOnHover = false;
             this.yt_Button8.Click += new System.EventHandler(this.yt_Button8_Click);
             // 
-            // yt_Button7
-            // 
-            this.yt_Button7.BackColor = System.Drawing.Color.Lime;
-            this.yt_Button7.BackColorAdditional = System.Drawing.Color.Gray;
-            this.yt_Button7.BackColorGradientEnabled = false;
-            this.yt_Button7.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.yt_Button7.BorderColor = System.Drawing.Color.LawnGreen;
-            this.yt_Button7.BorderColorEnabled = false;
-            this.yt_Button7.BorderColorOnHover = System.Drawing.Color.LawnGreen;
-            this.yt_Button7.BorderColorOnHoverEnabled = false;
-            this.yt_Button7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.yt_Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.yt_Button7.Font = new System.Drawing.Font("Verdana", 14.25F);
-            this.yt_Button7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.yt_Button7.Location = new System.Drawing.Point(46, 0);
-            this.yt_Button7.Name = "yt_Button7";
-            this.yt_Button7.RippleColor = System.Drawing.Color.Black;
-            this.yt_Button7.Rounding = 60;
-            this.yt_Button7.RoundingEnable = true;
-            this.yt_Button7.Size = new System.Drawing.Size(224, 37);
-            this.yt_Button7.TabIndex = 28;
-            this.yt_Button7.Text = "Script:";
-            this.yt_Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.yt_Button7.TextHover = null;
-            this.yt_Button7.UseDownPressEffectOnClick = false;
-            this.yt_Button7.UseRippleEffect = true;
-            this.yt_Button7.UseVisualStyleBackColor = false;
-            this.yt_Button7.UseZoomEffectOnHover = false;
-            this.yt_Button7.Visible = false;
-            // 
             // yt_Button11
             // 
             this.yt_Button11.BackColor = System.Drawing.Color.Lime;
@@ -389,6 +350,187 @@ namespace YLoader
             this.yt_Button11.UseZoomEffectOnHover = false;
             this.yt_Button11.Click += new System.EventHandler(this.yt_Button11_Click);
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.egoldsGoogleTextBox3);
+            this.panel3.Controls.Add(this.egoldsToggleSwitch3);
+            this.panel3.Controls.Add(this.egoldsToggleSwitch4);
+            this.panel3.Controls.Add(this.egoldsGoogleTextBox1);
+            this.panel3.Controls.Add(this.comboBox2);
+            this.panel3.Controls.Add(this.yt_Button1);
+            this.panel3.Controls.Add(this.yt_Button4);
+            this.panel3.Controls.Add(this.yt_Button9);
+            this.panel3.Location = new System.Drawing.Point(515, 15);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(270, 479);
+            this.panel3.TabIndex = 35;
+            this.panel3.Visible = false;
+            // 
+            // egoldsGoogleTextBox3
+            // 
+            this.egoldsGoogleTextBox3.BackColor = System.Drawing.Color.White;
+            this.egoldsGoogleTextBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.egoldsGoogleTextBox3.BorderColorNotActive = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.egoldsGoogleTextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.egoldsGoogleTextBox3.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.egoldsGoogleTextBox3.FontTextPreview = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.egoldsGoogleTextBox3.ForeColor = System.Drawing.Color.Black;
+            this.egoldsGoogleTextBox3.Location = new System.Drawing.Point(17, 179);
+            this.egoldsGoogleTextBox3.Name = "egoldsGoogleTextBox3";
+            this.egoldsGoogleTextBox3.SelectionStart = 0;
+            this.egoldsGoogleTextBox3.Size = new System.Drawing.Size(224, 40);
+            this.egoldsGoogleTextBox3.TabIndex = 35;
+            this.egoldsGoogleTextBox3.TextInput = "";
+            this.egoldsGoogleTextBox3.TextPreview = "How much videos per a day?";
+            this.egoldsGoogleTextBox3.UseSystemPasswordChar = false;
+            // 
+            // egoldsToggleSwitch3
+            // 
+            this.egoldsToggleSwitch3.BackColor = System.Drawing.Color.White;
+            this.egoldsToggleSwitch3.BackColorOFF = System.Drawing.Color.Silver;
+            this.egoldsToggleSwitch3.BackColorON = System.Drawing.Color.DodgerBlue;
+            this.egoldsToggleSwitch3.Checked = false;
+            this.egoldsToggleSwitch3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.egoldsToggleSwitch3.Font = new System.Drawing.Font("Verdana", 9F);
+            this.egoldsToggleSwitch3.Location = new System.Drawing.Point(20, 301);
+            this.egoldsToggleSwitch3.Name = "egoldsToggleSwitch3";
+            this.egoldsToggleSwitch3.Size = new System.Drawing.Size(107, 15);
+            this.egoldsToggleSwitch3.TabIndex = 33;
+            this.egoldsToggleSwitch3.Text = "FileName";
+            this.egoldsToggleSwitch3.TextOnChecked = "Title";
+            // 
+            // egoldsToggleSwitch4
+            // 
+            this.egoldsToggleSwitch4.BackColor = System.Drawing.Color.White;
+            this.egoldsToggleSwitch4.BackColorOFF = System.Drawing.Color.Silver;
+            this.egoldsToggleSwitch4.BackColorON = System.Drawing.Color.DodgerBlue;
+            this.egoldsToggleSwitch4.Checked = false;
+            this.egoldsToggleSwitch4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.egoldsToggleSwitch4.Font = new System.Drawing.Font("Verdana", 9F);
+            this.egoldsToggleSwitch4.Location = new System.Drawing.Point(20, 331);
+            this.egoldsToggleSwitch4.Name = "egoldsToggleSwitch4";
+            this.egoldsToggleSwitch4.Size = new System.Drawing.Size(142, 15);
+            this.egoldsToggleSwitch4.TabIndex = 33;
+            this.egoldsToggleSwitch4.Text = "Do NOT format";
+            this.egoldsToggleSwitch4.TextOnChecked = "Format";
+            // 
+            // egoldsGoogleTextBox1
+            // 
+            this.egoldsGoogleTextBox1.BackColor = System.Drawing.Color.White;
+            this.egoldsGoogleTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.egoldsGoogleTextBox1.BorderColorNotActive = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
+            this.egoldsGoogleTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.egoldsGoogleTextBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.egoldsGoogleTextBox1.FontTextPreview = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.egoldsGoogleTextBox1.ForeColor = System.Drawing.Color.Black;
+            this.egoldsGoogleTextBox1.Location = new System.Drawing.Point(17, 133);
+            this.egoldsGoogleTextBox1.Name = "egoldsGoogleTextBox1";
+            this.egoldsGoogleTextBox1.SelectionStart = 0;
+            this.egoldsGoogleTextBox1.Size = new System.Drawing.Size(224, 40);
+            this.egoldsGoogleTextBox1.TabIndex = 31;
+            this.egoldsGoogleTextBox1.TextInput = "";
+            this.egoldsGoogleTextBox1.TextPreview = "DD.MM.YYYY - start date";
+            this.egoldsGoogleTextBox1.UseSystemPasswordChar = false;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(20, 64);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(224, 21);
+            this.comboBox2.TabIndex = 30;
+            // 
+            // yt_Button1
+            // 
+            this.yt_Button1.BackColor = System.Drawing.Color.LightGreen;
+            this.yt_Button1.BackColorAdditional = System.Drawing.Color.Gray;
+            this.yt_Button1.BackColorGradientEnabled = false;
+            this.yt_Button1.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.yt_Button1.BorderColor = System.Drawing.Color.LawnGreen;
+            this.yt_Button1.BorderColorEnabled = false;
+            this.yt_Button1.BorderColorOnHover = System.Drawing.Color.LawnGreen;
+            this.yt_Button1.BorderColorOnHoverEnabled = false;
+            this.yt_Button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.yt_Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yt_Button1.Font = new System.Drawing.Font("Verdana", 16.25F);
+            this.yt_Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.yt_Button1.Location = new System.Drawing.Point(20, 395);
+            this.yt_Button1.Name = "yt_Button1";
+            this.yt_Button1.RippleColor = System.Drawing.Color.Black;
+            this.yt_Button1.Rounding = 60;
+            this.yt_Button1.RoundingEnable = true;
+            this.yt_Button1.Size = new System.Drawing.Size(224, 65);
+            this.yt_Button1.TabIndex = 28;
+            this.yt_Button1.Text = "Shift schedule";
+            this.yt_Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.yt_Button1.TextHover = null;
+            this.yt_Button1.UseDownPressEffectOnClick = false;
+            this.yt_Button1.UseRippleEffect = true;
+            this.yt_Button1.UseVisualStyleBackColor = false;
+            this.yt_Button1.UseZoomEffectOnHover = false;
+            // 
+            // yt_Button4
+            // 
+            this.yt_Button4.BackColor = System.Drawing.Color.Lime;
+            this.yt_Button4.BackColorAdditional = System.Drawing.Color.Gray;
+            this.yt_Button4.BackColorGradientEnabled = false;
+            this.yt_Button4.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.yt_Button4.BorderColor = System.Drawing.Color.LawnGreen;
+            this.yt_Button4.BorderColorEnabled = false;
+            this.yt_Button4.BorderColorOnHover = System.Drawing.Color.LawnGreen;
+            this.yt_Button4.BorderColorOnHoverEnabled = false;
+            this.yt_Button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.yt_Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yt_Button4.Font = new System.Drawing.Font("Verdana", 14.25F);
+            this.yt_Button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.yt_Button4.Location = new System.Drawing.Point(17, 236);
+            this.yt_Button4.Name = "yt_Button4";
+            this.yt_Button4.RippleColor = System.Drawing.Color.Black;
+            this.yt_Button4.Rounding = 60;
+            this.yt_Button4.RoundingEnable = true;
+            this.yt_Button4.Size = new System.Drawing.Size(224, 37);
+            this.yt_Button4.TabIndex = 28;
+            this.yt_Button4.Text = "Correct the dates";
+            this.yt_Button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.yt_Button4.TextHover = null;
+            this.yt_Button4.UseDownPressEffectOnClick = false;
+            this.yt_Button4.UseRippleEffect = true;
+            this.yt_Button4.UseVisualStyleBackColor = false;
+            this.yt_Button4.UseZoomEffectOnHover = false;
+            this.yt_Button4.Click += new System.EventHandler(this.yt_Button4_Click);
+            // 
+            // yt_Button9
+            // 
+            this.yt_Button9.BackColor = System.Drawing.Color.Lime;
+            this.yt_Button9.BackColorAdditional = System.Drawing.Color.Gray;
+            this.yt_Button9.BackColorGradientEnabled = false;
+            this.yt_Button9.BackColorGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.yt_Button9.BorderColor = System.Drawing.Color.LawnGreen;
+            this.yt_Button9.BorderColorEnabled = false;
+            this.yt_Button9.BorderColorOnHover = System.Drawing.Color.LawnGreen;
+            this.yt_Button9.BorderColorOnHoverEnabled = false;
+            this.yt_Button9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.yt_Button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yt_Button9.Font = new System.Drawing.Font("Verdana", 14.25F);
+            this.yt_Button9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.yt_Button9.Location = new System.Drawing.Point(20, 21);
+            this.yt_Button9.Name = "yt_Button9";
+            this.yt_Button9.RippleColor = System.Drawing.Color.Black;
+            this.yt_Button9.Rounding = 60;
+            this.yt_Button9.RoundingEnable = true;
+            this.yt_Button9.Size = new System.Drawing.Size(224, 37);
+            this.yt_Button9.TabIndex = 28;
+            this.yt_Button9.Text = "Sources:";
+            this.yt_Button9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.yt_Button9.TextHover = null;
+            this.yt_Button9.UseDownPressEffectOnClick = false;
+            this.yt_Button9.UseRippleEffect = true;
+            this.yt_Button9.UseVisualStyleBackColor = false;
+            this.yt_Button9.UseZoomEffectOnHover = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -409,6 +551,7 @@ namespace YLoader
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 538);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.yt_Button3);
@@ -419,6 +562,7 @@ namespace YLoader
             this.Text = "Проверить график выхода";
             ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,17 +576,24 @@ namespace YLoader
         private yt_DesignUI.yt_Button yt_Button3;
         private System.Windows.Forms.Panel panel2;
         private yt_DesignUI.yt_Button yt_Button11;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox cmbStyle;
         private yt_DesignUI.yt_Button yt_Button13;
         private yt_DesignUI.yt_Button yt_Button12;
         private yt_DesignUI.yt_Button yt_Button10;
-        private yt_DesignUI.yt_Button yt_Button7;
         private yt_DesignUI.EgoldsGoogleTextBox egoldsGoogleTextBox2;
         private yt_DesignUI.yt_Button yt_Button8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolTip toolTip1;
         private yt_DesignUI.EgoldsToggleSwitch egoldsToggleSwitch1;
         private yt_DesignUI.EgoldsToggleSwitch egoldsToggleSwitch2;
+        private System.Windows.Forms.Panel panel3;
+        private yt_DesignUI.EgoldsToggleSwitch egoldsToggleSwitch3;
+        private yt_DesignUI.EgoldsToggleSwitch egoldsToggleSwitch4;
+        private yt_DesignUI.EgoldsGoogleTextBox egoldsGoogleTextBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private yt_DesignUI.yt_Button yt_Button1;
+        private yt_DesignUI.yt_Button yt_Button4;
+        private yt_DesignUI.yt_Button yt_Button9;
+        private yt_DesignUI.EgoldsGoogleTextBox egoldsGoogleTextBox3;
     }
 }

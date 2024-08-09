@@ -148,6 +148,7 @@
     <Compile Include="Classes\API\VideoApp.cs" />
     <Compile Include="Classes\Browser.cs" />
     <Compile Include="Classes\Description.cs" />
+    <Compile Include="Classes\FileHandling\SPathCheck.cs" />
     <Compile Include="Classes\Mail.cs" />
     <Compile Include="Classes\Methods.cs" />
     <Compile Include="Classes\FileHandling\SFileReader.cs" />

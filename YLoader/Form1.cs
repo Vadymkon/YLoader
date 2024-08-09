@@ -24,6 +24,7 @@ using System.Configuration;
 using YLoader.Properties;
 using YLoader.Classes.API;
 using YLoader.Classes;
+using YLoader.Classes.FileHandling;
 
 namespace YLoader
 {
@@ -34,6 +35,7 @@ namespace YLoader
         public Form1()
         {
             InitializeComponent();
+            SPathCheck.checkAllPaths();
             yt_Button2.Click += new System.EventHandler(yt_Button1_Click); //copy action
             
             //set active path
@@ -67,13 +69,14 @@ namespace YLoader
             MetaApi a;
         void button1_Click(object sender, EventArgs e) //TEST-Button
         {
+            /*
             a = new MetaApi();
 
             a.Auth("gogokon.neko4@gmail.com", "pY]N852#");
             
             // a.Auth();
             a.UploadVideo(new VideoFile("AAAA_1.mp4"));
-
+*/
             //UploadVideo(@"C:\Users\vadymkon\Desktop\test.mp4","test","test Description");
             //RunSomethink(); //upload test video
             /*yt.getListOfMyVideos();
@@ -114,7 +117,7 @@ namespace YLoader
         
         void yt_Button1_Click(object sender, EventArgs e) //main big button
         {
-            if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt")) ScheduleMaker.MakeGraphik();
+            if (!File.Exists(SystemPaths.getSEOFilePath())) ScheduleMaker.MakeGraphik();
             new Form2(this).Show();
         }
         
@@ -158,7 +161,7 @@ namespace YLoader
         {
             await Task.Run(() => {
                 ScheduleMaker.MakeGraphik();
-                ScheduleMaker.MakeGraphikSh(new DateTime(2024, 07, 22));
+                ScheduleMaker.MakeGraphikSh(DateTime.Now);
             }); 
         }
 
@@ -248,9 +251,9 @@ namespace YLoader
                     Settings.Default.Save(); 
 
                     Directory.CreateDirectory(selectedFolder + "\\monthNext"); //create
-                    String pathToGrSH = Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt"; //path
-                    if (!File.Exists(pathToGrSH)) ScheduleMaker.MakeGraphikSh( new DateTime(2024, 07, 22)); //safety
-                    Graphik a = new Graphik(pathToGrSH); //get GR object
+
+                    if (!File.Exists(SystemPaths.getSEOFilePath_Shorts())) ScheduleMaker.MakeGraphikSh( DateTime.Now ); //safety
+                    Graphik a = new Graphik(SFileReader.LoadShortsFromJson()); //get GR object
                     int count = a.queueDT.Where(x => x <= DateTime.Now.AddDays(30)).ToList().Count; //how much videos
                     var filesIN = Directory.GetFiles(selectedFolder);
                     a.queue.GetRange(0, count).ForEach(x => {
@@ -268,12 +271,12 @@ namespace YLoader
 
         private void button4_Click(object sender, EventArgs e)
         {
-            SMethods.saveIdsToCEO();
+            SMethods.saveIdsToSEO();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Process.Start(Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history");
+            Process.Start(SystemPaths.getSEOPath());
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -295,37 +298,6 @@ namespace YLoader
             Process.Start(path);
         }
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog fileDialog = new OpenFileDialog()) //fileDialog
-            {
-                fileDialog.Title = "Choose file with list of fake files.";
-                fileDialog.ValidateNames = false;
-                fileDialog.CheckFileExists = false;
-                fileDialog.CheckPathExists = true;
-                fileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-
-                DialogResult result = fileDialog.ShowDialog();
-
-                if (result == DialogResult.OK)
-                {
-                //    string selectedFolder = Path.GetDirectoryName(fileDialog.FileName);
-                //    string selectedFileName = Path.GetFileName(fileDialog.FileName).Replace(".txt", "");
-
-                    File.ReadAllLines(fileDialog.FileName).ToList().ForEach(x => {  //foreach fake file
-                        if (!File.Exists(x)) File.WriteAllText(Settings.Default.active_path+"\\"+Path.GetFileName(x), "");
-                    });
-                }
-            }
-        }
-        private void button10_Click(object sender, EventArgs e)
-        {
-            Directory.GetFiles(Settings.Default["active_path"].ToString() + @"\CEO" )
-                .Where(x => x.EndsWith(".txt")).ToList().ForEach(x => {  //foreach fake file
-                if (!File.Exists(Settings.Default.active_path + "\\" + Path.GetFileName(x).Replace(".txt", ".mp4"))) 
-                        File.WriteAllText(Settings.Default.active_path + "\\" + Path.GetFileName(x).Replace(".txt",".mp4"), "");
-            });
-        }
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -333,16 +305,25 @@ namespace YLoader
             var videoFiles = SFileReader.LoadVideosFromJson(); // vFiles
             videoFiles = videoFiles.OrderBy(x => x.PublishedDate).ToList();
             //data
-            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
+            String pathCEO = SystemPaths.getSEOPath();
             String saveGRdata = new Graphik(videoFiles).print();
             Directory.CreateDirectory(pathCEO);
 
             //saving
-            File.WriteAllText(pathCEO + "/_graphik.txt", saveGRdata); // save&print
-            File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
+            SFileSaver.SaveVideosToJson(videoFiles); // save&print
+            File.WriteAllText(SystemPaths.getHistoryNewGRFilePath(), saveGRdata); // save&print
             new Form2(this).Show();
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SMethods.removeNoIDSEO();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            SMethods.saveIdsToSEO_Shorts();
+        }
     }
 
 

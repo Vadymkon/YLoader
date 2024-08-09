@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YLoader.Classes;
 using YLoader.Properties;
 
 namespace YLoader
@@ -33,10 +34,11 @@ namespace YLoader
             table_settings(); 
             CustomGR = pathToCustomGR;
 
-            if (Shorts) //hide panel
+          if (Shorts) //hide panel
             {
                 panel2.Visible = false;
-                objectListView1.Width = (int)(Width * 0.9 );
+                panel3.Visible = true;
+                // objectListView1.Width = (int)(Width * 0.9 );
             }
         }
 
@@ -100,18 +102,16 @@ namespace YLoader
                 MessageBox.Show("Put date correctly");
                 return;
             }
-            Graphik b = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
+            Graphik b = new Graphik(SFileReader.LoadVideosFromJson());
             b.newStartDate(egoldsGoogleTextBox2.Text.toDateTime());
             //data
-            String pathCEO = Path.GetDirectoryName(Application.ExecutablePath) + "/GR_history";
+            String pathCEO = SystemPaths.getSEOPath();
             String saveGRdata = b.print_ForEvery3days(egoldsGoogleTextBox2.Text.toDateTime());
             //saving
-            Directory.CreateDirectory(pathCEO);
-            File.WriteAllText(pathCEO + "/_graphik.txt", saveGRdata); // save&print
-            File.WriteAllText(pathCEO + $"/GR_{Directory.GetFiles(pathCEO).Length}.txt", saveGRdata); // save&print
-            b.writeDatesToCEO( 
-                Settings.Default["active_path"].ToString() + @"\CEO", 
-                Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
+            SFileSaver.SaveGraphikToJson(b);
+            File.WriteAllText(SystemPaths.getUserFilesReadableFilePath(), saveGRdata); // save&print
+
+
             
             // Make NEW SH-GR
             ScheduleMaker.MakeGraphikSh(egoldsGoogleTextBox2.Text.toDateTime());
@@ -135,5 +135,28 @@ namespace YLoader
             Close();
         }
 
+        private void yt_Button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                egoldsGoogleTextBox2.Text.toDateTime(); //is there norm format
+            }
+            catch
+            {
+                MessageBox.Show("Put date correctly");
+                return;
+            }
+            Graphik b = new Graphik(SFileReader.LoadShortsFromJson());
+            b.newStartDate(egoldsGoogleTextBox1.Text.toDateTime(), Convert.ToInt32(egoldsGoogleTextBox3.Text));
+            //data
+            String saveGRdata = b.print_ForEvery3days(egoldsGoogleTextBox1.Text.toDateTime());
+            File.WriteAllText(SystemPaths.getUserFilesReadableFilePath(), saveGRdata); // save&print
+            
+            //saving
+            SFileSaver.SaveGraphikToJson_Shorts(b);
+
+            // Update table
+            objectListView1.SetObjects(b.GetVideoFiles());
+        }
     }
 }

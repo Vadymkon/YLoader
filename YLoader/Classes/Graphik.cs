@@ -10,7 +10,7 @@ using YLoader.Properties;
 
 namespace YLoader
 {
-    class Graphik
+    public class Graphik
     {
         public List<String> queue = new List<string>();
         public List<DateTime> queueDT = new List<DateTime>();
@@ -19,24 +19,6 @@ namespace YLoader
         {
             //making list of Graphik
             for (int i = 0; i<value; i++) queue.Add("");
-        }
-
-        /// <summary>
-        /// Make graphik from file
-        /// </summary>
-        /// <param name="path"></param>
-        public Graphik(String path)
-        {
-            //get file
-            File.ReadAllLines(path).ToList().ForEach(x => { //for each line
-                List<String> arr = x.Split(':').ToList();  //split
-                if (arr.Count > 1) //if it is line with data
-                {
-                    queueDT.Add(arr[0].Trim().toDateTime()); //add date 
-                    if (arr[1].EndsWith(".")) arr[1] = arr[1].Substring(0, arr[1].Length - 1); // '.' in the finish of string
-                    queue.Add(arr[1].Trim()); //add name of video
-                }
-            });
         }
 
         public Graphik(List <VideoFile> videoFiles)
@@ -57,7 +39,7 @@ namespace YLoader
                 else
                 {
                     var a = new VideoFile(x.Trim());
-                    a.PublishedDate = a.PublishedDate.Add(TimeSpan.Parse(queueDT[queue.IndexOf(x)].ToLongDateString())); // TODO: here can be problems
+                    a.PublishedDate = queueDT[queue.IndexOf(x)]; // TODO: here can be problems
                     videoFiles.Add(a);
                 }
             });
@@ -94,10 +76,18 @@ namespace YLoader
         }
     
 
-    public void newStartDate(DateTime NewstartDate, int mode = 0)
+    public void newStartDate(DateTime NewstartDate, int amountPerDay = 0)
         {
             startDate = NewstartDate;
-            if (mode == 0) for (int i = 0; i < queueDT.Count; i++) queueDT[i] = startDate.AddDays(3 * i); //3days mode qDT
+
+            if (amountPerDay != 0)
+            {
+                for (int i = 0; i < queueDT.Count; i++)
+                {
+                    if (i != 0 && i%amountPerDay == 0) NewstartDate = NewstartDate.AddDays(1); // new date 
+                    queueDT[i] = NewstartDate.AddHours(10 + 14/amountPerDay*(i%amountPerDay) ); // 3 days mode qDT
+                }
+            }
         }
 
         public int putElementOnIndex(int index, String element)
@@ -118,9 +108,10 @@ namespace YLoader
             remove_spaces();
             String message = "  Graphik made by YT Uploader\r\n\r\n";
             if (queueDT == null || queueDT.Count == 0)
-            queue.ForEach(x => message += $"{startDate.AddDays(3*queue.IndexOf(x)).ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace("mp4","")}\r\n");
-            else 
-            queue.ForEach(x => message += $"{queueDT[queue.IndexOf(x)].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace("mp4","")}\r\n");
+                queue.ForEach(x => queueDT.Add(startDate.AddDays(3 * queue.IndexOf(x))));
+            // queue.ForEach(x => message += $"{startDate.AddDays(3*queue.IndexOf(x)).ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace("mp4","")}\r\n");
+            
+            queue.ForEach(x => message += $"{queueDT[queue.IndexOf(x)].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace(".mp4","")}\r\n");
 
             return message;
         }
@@ -129,30 +120,10 @@ namespace YLoader
         {
             remove_spaces();
             String message = "  Graphik made by YT Uploader\r\n\r\n";
-            queue.ForEach(x => message += $"{queueDT[queue.IndexOf(x)].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace("mp4","")}\r\n");
+            queue.ForEach(x => message += $"{queueDT[queue.IndexOf(x)].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture)} : {x.Replace(".mp4","")}\r\n");
             return message;
         }
 
-        public void writeDatesToCEO(String pathToCEO, String pathToGraphik)
-        {
-            List <VideoFile> a = new List<VideoFile>(); //making list for comparing
-            VideoFile buffer = null;
-            //get file
-            File.ReadAllLines(pathToGraphik).ToList().ForEach(x => { //for each line
-            if (x.Contains(':'))
-            {
-                List<String> arr = x.Split(':').ToList(); //split
-                if (arr[1].EndsWith(".")) arr[1] = arr[1].Substring(0, arr[1].Length - 1);
-                    buffer = new VideoFile(arr[1].Trim());
-                    buffer.PublishedDate = arr[0].Trim().toDateTime();
-                    a.Add(buffer); //add element to list
-                }
-            });
-            List <VideoFile> b = GetVideoFiles(); //original list without dates
-
-            b.ForEach(x => {x.PublishedDate = a.First(y => y.FileName == x.FileName).PublishedDate;});
-            SFileSaver.SaveVideosToJson(b);
-        }
 
     }
 }

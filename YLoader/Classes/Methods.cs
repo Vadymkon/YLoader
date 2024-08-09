@@ -26,7 +26,7 @@ namespace YLoader
         {
             // for all videos make CEO
             if (path == "") path = Settings.Default["active_path"].ToString(); //default way
-            String pathCEO = SystemPaths.getSEOPath(path);
+            String pathCEO = SystemPaths.getSEOFilePath(path);
             File.Create(pathCEO);
 
             SFileSaver.SaveVideosToJson(
@@ -38,7 +38,7 @@ namespace YLoader
             );
         }
 
-        static public async void saveIdsToCEO()
+        static public async Task saveIdsToSEO()
         {
             var a = new YouTubeApi();
             await a.getListOfMyVideos(); //videos from youtube
@@ -47,21 +47,58 @@ namespace YLoader
 
             b.ForEach(x =>
             {
-                var videosComparing = a.own_videos.ToList().Where(y => y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2") 
-                || y.Snippet.Title.formatOff() == (x.FileName.formatOff())).ToList();
+                var videosComparing = a.own_videos.ToList().Where(
+                    y => y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2") 
+                      || y.Snippet.Title.formatOff() == (x.FileName.formatOff())).ToList();
                 if (videosComparing.Count > 0) x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
             }); //finding Id for this
 
             SFileSaver.SaveVideosToJson(b);
         }
+        static public async Task saveIdsToSEO_Shorts()
+        {
+            // API
+            var a = new YouTubeApi();
+            await a.getListOfMyVideos(); //videos from youtube
 
-        
+            var b = SFileReader.LoadShortsFromJson(); // vFiles
+
+            b.ForEach(x =>
+            {
+                var videosComparing = a.own_videos.ToList().Where(
+                    y => y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2") 
+                      || y.Snippet.Title.formatOff() == (x.FileName.formatOff())).ToList();
+                if (videosComparing.Count > 0) x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
+            }); //finding Id for this
+
+            SFileSaver.SaveShortsToJson(b);
+        }
+
+        static public async void removeNoIDSEO()
+        {
+            // clear IDs
+            List<VideoFile> a = SFileReader.LoadVideosFromJson();
+            a.ForEach(x => x.Id = "");
+            SFileSaver.SaveVideosToJson(a);
+
+            // get ID
+            await saveIdsToSEO();
+            
+            //remove no id videos
+            a = SFileReader.LoadVideosFromJson();
+            string noIdVideos = string.Join(" ", a.Where(x => x.Id.Trim() == "").Select(x => x.FileName)); 
+            var result = MessageBox.Show(noIdVideos , "Remove?" , MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                SFileSaver.SaveVideosToJson(a.Where(x => x.Id.Trim() != "").ToList());
+            }
+        }
 
 
-        
 
-        //
-    }
+
+            //
+        }
 
     public partial class Form1 : Form
     {
@@ -78,23 +115,25 @@ namespace YLoader
             objectListView1.FormatCell += olv1_FormatCell; //make green cells
             objectListView1.CellClick += olv1_Click; //make opening files
             objectListView1.SetObjects(videos.Where(x => x.IsHaveCEOfile)); //start data
-            //for Videos Without CEO-files (right-bottom corner labels)
-            List<VideoFile> videosWithoutCEO = videos.Where(x => !x.IsHaveCEOfile).ToList();
-            if (videosWithoutCEO.Count > 0) //if there are
+            
+            
+            //for Videos Without SEO-files (right-bottom corner labels)
+            List<string> videosFileNames = Directory.GetFiles(Settings.Default.active_path).ToList().Where(x => x.EndsWith(".mp4")).Select(x => Path.GetFileName(x)).Select(x => x.Replace(".mp4", "")).ToList();
+            List<string> videosWithoutSEO = videosFileNames.Except(videos.Select(x => x.FileName)).ToList();
+            List<VideoFile> videosFilesWithoutSEO = videosWithoutSEO.Select(x => new VideoFile(x)).ToList();
+
+            if (videosFilesWithoutSEO.Count > 0) //if there are
             {
                 label2.Visible = true;
-                label2.Text = $"{videosWithoutCEO.Count} videos without SEO at all."; //right-bottom corner message
+                label2.Text = $"{videosFilesWithoutSEO.Count} videos without SEO at all."; //right-bottom corner message
                 linkLabel1.Visible = true;
                 linkLabel1.Click += new System.EventHandler((a, e) =>
                 {
-                    SFileSaver.SaveVideosToJson(videosWithoutCEO);
+                    SFileSaver.SaveVideosToJson(videosFilesWithoutSEO, false);
                     table1Reload(videos);
                     label2.Text = "";
                     linkLabel1.Visible = false;
-                    new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt")
-                    .writeDatesToCEO(Settings.Default["active_path"].ToString() + @"\CEO",
-                        Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
-                    SMethods.saveIdsToCEO();
+                    SMethods.saveIdsToSEO();
                 }); //link-action
             }
         }
@@ -156,53 +195,36 @@ namespace YLoader
 
         internal void UpdateVideos(List<VideoFile> vf, bool Shorts = false)
         {
+            VideoFile templateVideo = SFileReader.LoadTemplateVideo();
+
             Invoke((Action)(
                () =>
                {
                    vf = vf.Where(x => x.Id != "").ToList();
+                   if (Shorts)
+                   {
+                       vf = vf.GetRange(0, vf.Count > 90 ? 90 : vf.Count);
+                   }
+
                    label3.Visible = true;
                    egoldsProgressBar1.Value = 0;
                    egoldsProgressBar1.ValueMaximum = vf.Count;
 
-
-                   DateTime dateTimeCURR = new DateTime(),
-                            dateTimeBEF = new DateTime(); //dateTime buffers
                    int againer = 0; //
 
                    vf.ForEach(x =>
                    {
-                       int hours = 13;
-                       if (Shorts)
-                       {
-                           //13 - 16 - 19 (for shorts)
-                           dateTimeCURR = x.PublishedDate;
-                           if (dateTimeCURR == dateTimeBEF) ++againer;
-                           else againer = 0;
-                           switch (againer)
-                           {
-                               case 0:
-                                   hours = 13;
-                                   break;
-                               case 1:
-                                   hours = 16;
-                                   break;
-                               case 2:
-                                   hours = 19;
-                                   break;
-                               default:
-                                   hours = 13;
-                                   break;
-                           }
-                       }
+                       // template video 
+                       if (x.Title.Trim() == "") x.Title = templateVideo.Title;
+                       if (x.Description.Trim() == "") x.Title = templateVideo.Description;
 
                        //stahdart update
+                       int hours = 13;
                        x.PublishedDate = x.PublishedDate.AddHours(hours);
+                       
                        yt.UpdateVideoInfo(x);
                        ++egoldsProgressBar1.Value;
                        label3.Text = $"Загружено {egoldsProgressBar1.Value}";
-
-                       if (Shorts)
-                           dateTimeBEF = dateTimeCURR;
                    });
                    new Form2(this).Show();
                }));
@@ -276,7 +298,7 @@ namespace YLoader
                         {
                             try
                             {
-                                ScheduleMaker.SaveGRtoFile(videoFiles, egoldsGoogleTextBox2.Text);
+                                ScheduleMaker.SaveGRtoFile(videoFiles, egoldsGoogleTextBox2.Text.toDateTime());
                             }
                             catch
                             {
@@ -387,17 +409,19 @@ namespace YLoader
             //get Graphik infoInvoke
             Graphik a;
             if (CustomGR.Trim() != "")
-                a = new Graphik(CustomGR); //in case where we gonna watch custom GR
+                a = new Graphik(SFileReader.LoadVideosFromJson(CustomGR)); //in case where we gonna watch custom GR
             else
             {
 
                 if (Shorts == false)
-                    a = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik.txt");
+                {
+                    a = new Graphik(SFileReader.LoadVideosFromJson());
+                }
                 else
                 {
-                    if (!File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt"))
-                        Task.Run(() => { ScheduleMaker.MakeGraphikSh((new DateTime(2024, 06, 01))); }).Wait(); //if GR-SH doesn't exist - improve it
-                    a = new Graphik(Path.GetDirectoryName(Application.ExecutablePath) + @"\GR_history\_graphik_SH.txt");
+                    if (!File.Exists(SystemPaths.getSEOFilePath_Shorts()))
+                        Task.Run(() => { ScheduleMaker.MakeGraphikSh((DateTime.Now)); }).Wait(); //if GR-SH doesn't exist - improve it
+                    a = new Graphik(SFileReader.LoadShortsFromJson());
                 }
             }
 
@@ -405,8 +429,11 @@ namespace YLoader
             videoFiles = a.GetVideoFiles();
             objectListView1.SetObjects(videoFiles); //put VideoFiles-info to table
 
-            egoldsGoogleTextBox2.Text = a.queueDT[0].ToString("dd.MM.yyyy", CultureInfo.InvariantCulture); //change textbox // that's comforable to set it here
-
+            DateTime dateForField = DateTime.Now; 
+            if (a.queueDT.Count > 0) dateForField = a.queueDT[0];
+            egoldsGoogleTextBox2.Text = dateForField.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture); //change textbox // that's comforable to set it here
+            egoldsGoogleTextBox1.Text = dateForField.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture); //change textbox // that's comforable to set it here
+            egoldsGoogleTextBox3.Text = 3.ToString(); 
         }
 
 
