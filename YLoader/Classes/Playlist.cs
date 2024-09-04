@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace YLoader
 {
@@ -20,7 +22,7 @@ namespace YLoader
         {
             ListOfVideos = new List<String>(); //make list avaliable
             push_back(element); //added this element
-            NameOfPlaylist = element.Split('_')[0].Split(' ')[0].Split('.')[0]; ; //get name of this playlist
+            getNameOfPlaylist(element);
         }
         
         // constructor 2
@@ -32,16 +34,19 @@ namespace YLoader
         }
 
         // constructor 3
-        public Playlist(String prefix, DateTime dateTime) //get first video name and prefix
+        public Playlist(String element, DateTime dateTime) //get first video name and prefix
         {
             ListOfVideos = new List<String>(); //make list avaliable
-            NameOfPlaylist = prefix; //get name of this playlist
+            NameOfPlaylist = element;//get name of this playlist
             date4SHORTS = dateTime;
             type = "SH";
         }
 
 
-
+        void getNameOfPlaylist(string element)
+        {
+            NameOfPlaylist = element.Split('_')[0].Split(' ')[0].Split('.')[0]; ; //get name of this playlist
+        }
         public void push_back(String elem) // add new element to the list
         {
             ListOfVideos.Add(elem);

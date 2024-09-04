@@ -34,6 +34,7 @@ namespace YLoader
         public YouTubeApi yt;
         public Form1()
         {
+
             InitializeComponent();
             SPathCheck.checkAllPaths();
             yt_Button2.Click += new System.EventHandler(yt_Button1_Click); //copy action
@@ -257,9 +258,9 @@ namespace YLoader
                     int count = a.queueDT.Where(x => x <= DateTime.Now.AddDays(30)).ToList().Count; //how much videos
                     var filesIN = Directory.GetFiles(selectedFolder);
                     a.queue.GetRange(0, count).ForEach(x => {
-                        if (filesIN.Contains(selectedFolder+"\\"+x))
+                        if (filesIN.Contains(selectedFolder+"\\"+x + ".mp4"))
                         {
-                            File.Move(selectedFolder + "\\" + x, selectedFolder + "\\monthNext" + "\\" + x); //moving to this folder
+                            File.Move(selectedFolder + "\\" + x + ".mp4", selectedFolder + "\\monthNext" + "\\" + x + ".mp4"); //moving to this folder
                         }
                     });
 

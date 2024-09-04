@@ -380,15 +380,15 @@ namespace YLoader
 
             DateTime getDate(Dictionary<DateTime, List<String>> pairss, DateTime day)
             {
-                if (pairss.Keys.Contains(day)) return day;
+                if (pairss.Keys.Select(x=> x.Date).Contains(day.Date)) return day;
                 else return pairss.Keys.First();
             }
 
             //Part 2 - get pairs
             Dictionary<DateTime, List<String>> pairs = new Dictionary<DateTime, List<string>>(); //here pairs date - videos 
-            startDate = DateTime.Now; // bad hardcode
-            startDate = startDate.AddDays(-10);
-            for (int i = 0; i < 750; i++) pairs.Add(startDate.AddDays(i), new List<String>()); //put for 2 years next empty slots
+            //startDate = DateTime.Now; // bad hardcode
+            //startDate = startDate.AddDays(-10);
+            for (int i = 0; i < 750; i++) pairs.Add(startDate.Date.AddDays(i), new List<String>()); //put for 2 years next empty slots
 
             //Part 3 - put to DateTime
             playlists.ForEach(pl =>
@@ -418,6 +418,7 @@ namespace YLoader
 
             //Part 4 - Where more than 3 [sh] - move it to next
             int whiletry = 0;
+            
             pairs.ToList().ForEach(pair =>
             {
                 whiletry = 0;

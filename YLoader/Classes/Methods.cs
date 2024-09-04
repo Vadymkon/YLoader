@@ -215,7 +215,7 @@ namespace YLoader
                    vf.ForEach(x =>
                    {
                        // template video 
-                       if (x.Title.Trim() == "") x.Title = templateVideo.Title;
+                       if (x.Title.Trim() == "" || x.Title.Trim() == "TestTITLE") x.Title = templateVideo.Title;
                        if (x.Description.Trim() == "") x.Title = templateVideo.Description;
 
                        //stahdart update
@@ -224,7 +224,7 @@ namespace YLoader
                        
                        yt.UpdateVideoInfo(x);
                        ++egoldsProgressBar1.Value;
-                       label3.Text = $"Загружено {egoldsProgressBar1.Value}";
+                       label3.Text = $"Loaded {egoldsProgressBar1.Value}";
                    });
                    new Form2(this).Show();
                }));
