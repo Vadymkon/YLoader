@@ -66,9 +66,15 @@ namespace YLoader
             b.ForEach(x =>
             {
                 var videosComparing = a.own_videos.ToList().Where(
-                    y => y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2") 
-                      || y.Snippet.Title.formatOff() == (x.FileName.formatOff())).ToList();
-                if (videosComparing.Count > 0) x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
+                    y => 
+                    y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2")  // compare Title
+                      || 
+                    y.Snippet.Title.formatOff() == x.FileName.formatOff() // compare Filename
+                    ).ToList();
+                if (x.FileName == "sh20 MAMAA") 
+                    ;
+                if (videosComparing.Count > 0) // all videos which are similar with x-video
+                    x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
             }); //finding Id for this
 
             SFileSaver.SaveShortsToJson(b);
@@ -203,7 +209,7 @@ namespace YLoader
                    vf = vf.Where(x => x.Id != "").ToList();
                    if (Shorts)
                    {
-                       vf = vf.GetRange(0, vf.Count > 90 ? 90 : vf.Count);
+                       vf = vf.GetRange(0, vf.Count > 100 ? 100 : vf.Count);
                    }
 
                    label3.Visible = true;
@@ -426,7 +432,7 @@ namespace YLoader
             }
 
 
-            videoFiles = a.GetVideoFiles();
+            videoFiles = a.GetVideoFiles(Shorts);
             objectListView1.SetObjects(videoFiles); //put VideoFiles-info to table
 
             DateTime dateForField = DateTime.Now; 

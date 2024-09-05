@@ -27,10 +27,12 @@ namespace YLoader
             videoFiles.ForEach(x => queueDT.Add(x.PublishedDate));
         }
 
-        public List<VideoFile> GetVideoFiles()
+        public List<VideoFile> GetVideoFiles(bool Shorts = false)
         {
             List<VideoFile> videoFiles = new List<VideoFile>();
-            List<VideoFile> existringVideoFiles = SFileReader.LoadVideosFromJson();
+            List<VideoFile> existringVideoFiles = 
+                Shorts ? SFileReader.LoadShortsFromJson() : 
+                         SFileReader.LoadVideosFromJson();
 
             queue.ForEach(x =>
             {
