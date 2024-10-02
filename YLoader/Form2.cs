@@ -126,11 +126,14 @@ namespace YLoader
 
         private void yt_Button3_Click(object sender, EventArgs e) //Realize GR
         {
+            List <string> avaliableIDs = parentForm.yt.own_videos.Select(x => x.Snippet.ResourceId.VideoId).ToList(); // avaliable IDs FOR CURRENT CHANNEL
             if (videoFiles.Where(x => x.Id != "").ToList().Count == 0)
             {
                 MessageBox.Show("если вам охота загрузить видео, \r\nто загрузите просто файлики на ютуб, \r\nи уже потом нажимайте реализовать");
                 return;
             }
+            videoFiles = videoFiles.Where(v => avaliableIDs.Contains(v.Id)).ToList(); // clear unavaliable IDs
+
             parentForm.UpdateVideos(videoFiles,Shorts); //update all
             Close();
         }

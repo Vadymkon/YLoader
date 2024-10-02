@@ -32,7 +32,7 @@ namespace YLoader
 
         public static String formatOff(this String line)
         {
-            List<String> Symbols = new List<string> { ".", "_" }; //to space
+            List<String> Symbols = new List<string> { ".", "_", "-" }; //to space
             Symbols.ForEach(x => { line = line.Replace(x, " "); });
             List<String> SymbolsOff = new List<string> { "(", ")" }; //symbols which replacing to NOTHING
             SymbolsOff.ForEach(x => { line = line.Replace(x, ""); });

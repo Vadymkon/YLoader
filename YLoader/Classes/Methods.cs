@@ -67,13 +67,13 @@ namespace YLoader
             b.ForEach(x =>
             {
                 var videosComparing = a.own_videos.ToList().Where(
-                    y => 
+                    y =>
                     y.Snippet.Title == (x.Title != "" ? x.Title : "n)sk2")  // compare Title
-                      || 
+                      ||
                     y.Snippet.Title.formatOff() == x.FileName.formatOff() // compare Filename
                     ).ToList();
-                if (x.FileName == "sh20 MAMAA") 
-                    ;
+                if (x.Title.Contains("sh373"))
+                    ; // debug
                 if (videosComparing.Count > 0) // all videos which are similar with x-video
                     x.Id = videosComparing[0].Snippet.ResourceId.VideoId;
             }); //finding Id for this

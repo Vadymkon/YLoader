@@ -115,8 +115,10 @@ namespace YLoader
             video.Status = new VideoStatus();
             video.Status.PrivacyStatus = "private"; // or "private" or "public" // "unlisted" - доступ по ссылке
 
+            if (vFile.PublishedDate > DateTime.Now) // saveness
             video.Status.PublishAt = vFile.PublishedDate; //.AddHours(hours);
-
+            else
+                video.Status.PrivacyStatus = "public";
 
             var videosInsertRequest = service3.Videos.Update(video, "snippet,status");
             await videosInsertRequest.ExecuteAsync();
