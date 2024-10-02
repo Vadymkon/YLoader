@@ -49,7 +49,7 @@ namespace YLoader.Classes
         {
             List<VideoFile> a = LoadVideosFromJson(SystemPaths.getSEOTemplateFile());
             //safety
-            if (a.Count < 1)
+            if (a.Count <= 1)
             {
                 a.Add(new VideoFile("template")); // template short-data
                 SFileSaver.SaveVideosToJson(a,SystemPaths.getSEOTemplateFile(),true);

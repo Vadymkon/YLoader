@@ -44,6 +44,7 @@ namespace YLoader
             await a.getListOfMyVideos(); //videos from youtube
 
             var b = SFileReader.LoadVideosFromJson(); // vFiles
+            b.ForEach(x => { x.FileName = x.FileName.Replace(".mp4", ""); });
 
             b.ForEach(x =>
             {
@@ -222,7 +223,7 @@ namespace YLoader
                    {
                        // template video 
                        if (x.Title.Trim() == "" || x.Title.Trim() == "TestTITLE") x.Title = templateVideo.Title;
-                       if (x.Description.Trim() == "") x.Title = templateVideo.Description;
+                       if (x.Description.Trim() == "") x.Description = templateVideo.Description;
 
                        //stahdart update
                        int hours = 13;

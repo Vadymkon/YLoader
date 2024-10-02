@@ -41,8 +41,8 @@ namespace YLoader.Classes
             for (int i = 0; i < graphik.queue.Count; i++)
             {
                 if (videoFiles.Any(y => y.FileName == buffer[i]))
-                    videoFiles.First(y => y.FileName == buffer[i])
-                        .PublishedDate = graphik.queueDT[i];
+                    videoFiles.First(y => y.FileName == buffer[i]).PublishedDate = graphik.queueDT[i];
+                else videoFiles.Add(new VideoFile(graphik.queue[i], graphik.queueDT[i], 0));
             }
 
             SFileSaver.SaveVideosToJson(videoFiles, filePath, true);

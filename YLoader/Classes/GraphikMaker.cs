@@ -356,7 +356,7 @@ namespace YLoader
             Graphik graphik;
 
             List<VideoFile> longlist = SFileReader.LoadVideosFromJson(); //get long list
-            longlist.ForEach(video => playlists.Add(new Playlist(video.FileName, video.PublishedDate))); //get groups of video
+            longlist.ForEach(video => playlists.Add(new Playlist(video.FileName, video.PublishedDate.Date))); //get groups of video
 
             String path = Settings.Default["active_path"].ToString() + "\\shorts"; //path to shorts video
             if (Settings.Default["active_path"].ToString().Contains("shorts")) { MessageBox.Show("Dont use shorts-directory as main"); return; }
@@ -380,7 +380,7 @@ namespace YLoader
 
             DateTime getDate(Dictionary<DateTime, List<String>> pairss, DateTime day)
             {
-                if (pairss.Keys.Select(x=> x.Date).Contains(day.Date)) return day;
+                if (pairss.Keys.Select(x=> x.Date).Contains(day.Date)) return day.Date;
                 else return pairss.Keys.First();
             }
 

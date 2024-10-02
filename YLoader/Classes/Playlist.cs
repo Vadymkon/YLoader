@@ -37,7 +37,7 @@ namespace YLoader
         public Playlist(String element, DateTime dateTime) //get first video name and prefix
         {
             ListOfVideos = new List<String>(); //make list avaliable
-            NameOfPlaylist = element;//get name of this playlist
+            getNameOfPlaylist(element);//get name of this playlist
             date4SHORTS = dateTime;
             type = "SH";
         }
